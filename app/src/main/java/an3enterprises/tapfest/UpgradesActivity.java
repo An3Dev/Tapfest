@@ -16,6 +16,8 @@ import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
+import static an3enterprises.tapfest.MainActivity.quantity;
+
 public class UpgradesActivity extends AppCompatActivity {
 
     SharedPreferences tapRateSaved;
@@ -23,6 +25,14 @@ public class UpgradesActivity extends AppCompatActivity {
     static int tapRate = 1;
     private RewardedVideoAd mAd;
 
+    @Override
+    protected void onStop() {
+        SharedPreferences tapRateSaved = getSharedPreferences("tapRate", Context.MODE_PRIVATE);
+        SharedPreferences.Editor tapRateSavedEditor = tapRateSaved.edit();
+        tapRateSavedEditor.putInt("tapRate", tapRate);
+        tapRateSavedEditor.commit();;
+        super.onStop();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +80,7 @@ public class UpgradesActivity extends AppCompatActivity {
             @Override
             public void onRewarded(RewardItem rewardItem) {
                 Toast.makeText(UpgradesActivity.this, "You just received $50k for watching the video!", Toast.LENGTH_SHORT).show();
-                MainActivity.quantity += 50000;
+                quantity += 50000;
 
             }
 
@@ -91,7 +101,7 @@ public class UpgradesActivity extends AppCompatActivity {
 
     public void incrementTapState(View view) {
         Button upgradeButton = (Button) findViewById(R.id.upgrade_button);
-        if (MainActivity.quantity < tapRate + 1) {
+        if (quantity < tapRate + 1) {
             upgradeButton.setBackgroundColor(getResources().getColor(R.color.lightGray));
             Toast.makeText(UpgradesActivity.this, "You don't have enough dollars.", Toast.LENGTH_SHORT).show();
 //            final TextView mSwitcher = (TextView) findViewById(R.id.disappearing_textview);
@@ -109,10 +119,10 @@ public class UpgradesActivity extends AppCompatActivity {
 //            fadeOut.setStartOffset(2200 + fadeIn.getStartOffset());
 
         } else {
-            MainActivity.quantity = MainActivity.quantity - tapRate;
+            quantity = quantity - tapRate;
             tapRate = tapRate + 1;
             upgradeButton.setText("$" + tapRate + " per tap");
-            MainActivity.num.setText("$" + MainActivity.quantity);
+            MainActivity.num.setText("$" + quantity);
 
         }
 
