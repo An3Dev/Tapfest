@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="an3enterprises.tapfest.UpgradesActivity"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="$1 per tap"
+            android:id="@+id/upgrade_button"
+            android:onClick="incrementTapState"
+            android:background="@color/colorPrimary"
+            android:textColor="#FFF"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:minHeight="70dp"
+            android:textAllCaps="false"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Watch video to earn $50k"
+            android:onClick="showRewardAd"
+            android:background="@color/lightGray"
+            android:textColor="#FFF"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:minHeight="70dp"
+            android:textAllCaps="false"
+            android:layout_marginTop="10dp"
+            android:id="@+id/reward_ad_btn"
+            android:enabled="false"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/disappearing_textview"
+            android:layout_marginTop="16dp"
+            android:text="Sorry you don't have enough money to increase your tap rate"
+            android:visibility="gone"
+            android:textSize="18sp"
+            android:textColor="#000" />
+        </LinearLayout>
+
+    </ScrollView>
+
+</FrameLayout>
