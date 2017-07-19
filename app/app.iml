@@ -148,6 +148,7 @@
     <orderEntry type="library" exported="" name="play-services-basement-11.0.2" level="project" />
     <orderEntry type="library" exported="" name="firebase-ads-11.0.2" level="project" />
     <orderEntry type="library" exported="" name="play-services-auth-11.0.2" level="project" />
+    <orderEntry type="library" exported="" name="constraint-layout-1.0.2" level="project" />
     <orderEntry type="library" exported="" name="support-v4-26.0.0-alpha1" level="project" />
     <orderEntry type="library" exported="" name="support-media-compat-26.0.0-alpha1" level="project" />
     <orderEntry type="library" exported="" name="firebase-iid-11.0.2" level="project" />
@@ -159,6 +160,7 @@
     <orderEntry type="library" exported="" name="play-services-base-11.0.2" level="project" />
     <orderEntry type="library" exported="" name="play-services-tagmanager-11.0.2" level="project" />
     <orderEntry type="library" exported="" name="play-services-wearable-11.0.2" level="project" />
+    <orderEntry type="library" exported="" name="constraint-layout-solver-1.0.2" level="project" />
     <orderEntry type="library" exported="" name="play-services-drive-11.0.2" level="project" />
     <orderEntry type="library" exported="" name="play-services-safetynet-11.0.2" level="project" />
     <orderEntry type="library" exported="" name="mediarouter-v7-25.2.0" level="project" />

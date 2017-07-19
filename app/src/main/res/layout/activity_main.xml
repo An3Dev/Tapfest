@@ -19,8 +19,9 @@
         android:textColor="#000"
         android:gravity="center_horizontal"
         android:id="@+id/num"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/adView"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="129dp" />
 
     <Button
         android:layout_width="match_parent"
@@ -48,6 +49,19 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true" />
 
+    <Button
+        android:id="@+id/settings_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:text="Settings"
+        android:textAllCaps="false"
+        android:background="@drawable/round_button"
+        android:textColor="#FFF"
+        android:onClick="goToSettings"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+
     <com.google.android.gms.ads.AdView
         xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
@@ -55,8 +69,8 @@
         android:layout_height="wrap_content"
         ads:adSize="BANNER"
         ads:adUnitId="ca-app-pub-7638825445174820/7213516791"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
     </com.google.android.gms.ads.AdView>
 
 </RelativeLayout>
