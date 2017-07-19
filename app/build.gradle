@@ -18,6 +18,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets { main { aidl.srcDirs = ['src/main/aidl', 'src/main/java/aidl'] } }
 }
 
 dependencies {
