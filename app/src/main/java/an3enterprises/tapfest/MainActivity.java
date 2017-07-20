@@ -1,11 +1,11 @@
 package an3enterprises.tapfest;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -20,13 +20,18 @@ import com.google.android.gms.ads.MobileAds;
 
 import java.util.Random;
 
-public class MainActivity extends AppCompatActivity {
+import static android.widget.Toast.makeText;
+
+public class MainActivity extends Activity {
 
     static int quantity = 0;
     static int numOfClicks;
+    static int numOfClicksSaved;
     public static TextView num;
     private AdView mAdView;
     static int randNumForBonus;
+    static int festDiamonds;
+    static TextView festDiamondText;
     Random rand = new Random();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +41,15 @@ public class MainActivity extends AppCompatActivity {
         startBonusCycle();
         //Remove notification bar
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         setContentView(R.layout.activity_main);
         MobileAds.initialize(getApplicationContext(),
                 "ca-app-pub-3940256099942544~3347511713");
         SharedPreferences adsGone = getSharedPreferences("adsGone", Context.MODE_PRIVATE);
         final String isAdsGone = adsGone.getString("adsGone", "false");
+        SharedPreferences getFestDiamonds = getSharedPreferences("festDiamonds", Context.MODE_PRIVATE);
+        final int getFestDiamondsInt = getFestDiamonds.getInt("festDiamonds", 0);
+        festDiamonds = getFestDiamondsInt;
+
         if (isAdsGone.matches("false")){
             mAdView = (AdView) findViewById(R.id.adView);
             AdRequest adRequest = new AdRequest.Builder().addTestDevice("D89FEDA779180F27568ECBDF5EEF043F").build();
@@ -56,8 +64,10 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences quantitySaved = getSharedPreferences("quantity", Context.MODE_PRIVATE);
         final int quantitySavedInt = quantitySaved.getInt("quantity", 0);
         quantity = quantitySavedInt;
-        displayQuantity();
         TextView num = (TextView) findViewById(R.id.num);
+        festDiamondText = (TextView) findViewById(R.id.festDiamondText);
+        displayFestDiamonds();
+        displayQuantity();
 
     }
 
@@ -69,26 +79,41 @@ public class MainActivity extends AppCompatActivity {
 
     public void increment(View view) {
         numOfClicks += 1;
+        numOfClicksSaved += 1;
         quantity = quantity + UpgradesActivity.tapRate;
         if (numOfClicks == randNumForBonus){
             startBonusCycle();
-            final MediaPlayer kachingSound = MediaPlayer.create(this, R.raw.kaching_sound_effect);
+            final MediaPlayer kachingSound = MediaPlayer.create(this, R.raw.kaching);
             kachingSound.start();
             Random bonus = new Random();
             int bonusInt = bonus.nextInt(50000) + 10000;
             quantity += bonusInt;
-            Toast toast = Toast.makeText(MainActivity.this,"Bonus: " + bonusInt + "Festcoins", Toast.LENGTH_LONG);
+            Toast toast = makeText(MainActivity.this,"Bonus: " + "$" + bonusInt, Toast.LENGTH_LONG);
             toast.setGravity(Gravity.TOP, 0, 0);
             toast.show();
+        }if (numOfClicksSaved % 1000 == 0) {
+            festDiamonds += 1;
+            displayFestDiamonds();
+            SharedPreferences festDiamondsSP = getSharedPreferences("festDiamonds", Context.MODE_PRIVATE);
+            SharedPreferences.Editor festDiamondsEditor = festDiamondsSP.edit();
+            festDiamondsEditor.putInt("festDiamonds", festDiamonds);
+            festDiamondsEditor.commit();
         }
         displayQuantity();
 
     }
 
     public static void displayQuantity() {
+        if (quantity != 0) {
+            num.setText("$" + quantity);
+        }else if (quantity == 0) {
+            num.setText(quantity + " FestCoins");
+        }
 
-        num.setText(quantity + " Festcoins");
+    }
 
+    public static void displayFestDiamonds() {
+        festDiamondText.setText("FestDiamonds: " + festDiamonds);
     }
 
 
@@ -150,4 +175,6 @@ public class MainActivity extends AppCompatActivity {
         quantitySavedEditor.commit();
         super.onBackPressed();
     }
+
+
 }

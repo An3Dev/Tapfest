@@ -14,7 +14,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="0 Festcoins"
+        android:text="0 FestCoins"
         android:textSize="50sp"
         android:textColor="#000"
         android:gravity="center_horizontal"
@@ -73,5 +73,16 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true">
     </com.google.android.gms.ads.AdView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FestDiamonds: 0"
+        android:layout_below="@+id/adView"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"
+        android:textColor="#000"
+        android:id="@+id/festDiamondText"/>
+
 
 </RelativeLayout>

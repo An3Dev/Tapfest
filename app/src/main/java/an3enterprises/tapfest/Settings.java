@@ -1,11 +1,11 @@
 package an3enterprises.tapfest;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -23,7 +23,7 @@ import an3enterprises.tapfest.util.IabResult;
 import an3enterprises.tapfest.util.Inventory;
 import an3enterprises.tapfest.util.Purchase;
 
-public class Settings extends AppCompatActivity {
+public class Settings extends Activity {
 
     ArrayAdapter settings;
     ListView lv;
