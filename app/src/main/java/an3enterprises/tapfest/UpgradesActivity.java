@@ -47,7 +47,7 @@ public class UpgradesActivity extends AppCompatActivity {
         final int tapRateSavedInt = tapRateSaved.getInt("tapRate", 1);
         tapRate = tapRateSavedInt;
         upgradeButton = (Button) findViewById((R.id.upgrade_button));
-        upgradeButton.setText("$" + tapRate + " per tap");
+        upgradeButton.setText(tapRate + " Festcoins per tap");
         if (tapRate == 1){
             Toast.makeText(UpgradesActivity.this, "Tap above to increase dollars per tap.^", Toast.LENGTH_LONG).show();
         }
@@ -79,7 +79,7 @@ public class UpgradesActivity extends AppCompatActivity {
 
             @Override
             public void onRewarded(RewardItem rewardItem) {
-                Toast.makeText(UpgradesActivity.this, "You just received $50k for watching the video!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(UpgradesActivity.this, "You just received 50k Festcoins for watching the video!", Toast.LENGTH_SHORT).show();
                 quantity += 50000;
 
             }
@@ -101,9 +101,13 @@ public class UpgradesActivity extends AppCompatActivity {
 
     public void incrementTapState(View view) {
         Button upgradeButton = (Button) findViewById(R.id.upgrade_button);
+        if (quantity > tapRate){
+            upgradeButton.setEnabled(true);
+        }
         if (quantity < tapRate + 1) {
             upgradeButton.setBackgroundColor(getResources().getColor(R.color.lightGray));
-            Toast.makeText(UpgradesActivity.this, "You don't have enough dollars.", Toast.LENGTH_SHORT).show();
+            upgradeButton.setEnabled(false);
+            Toast.makeText(UpgradesActivity.this, "You don't have enough Festcoins.", Toast.LENGTH_SHORT).show();
 //            final TextView mSwitcher = (TextView) findViewById(R.id.disappearing_textview);
 //            mSwitcher.setText("");
 //            mSwitcher.setVisibility(View.VISIBLE);
@@ -121,8 +125,8 @@ public class UpgradesActivity extends AppCompatActivity {
         } else {
             quantity = quantity - tapRate;
             tapRate = tapRate + 1;
-            upgradeButton.setText("$" + tapRate + " per tap");
-            MainActivity.num.setText("$" + quantity);
+            upgradeButton.setText(tapRate + " Festcoins per tap");
+            MainActivity.displayQuantity();
 
         }
 

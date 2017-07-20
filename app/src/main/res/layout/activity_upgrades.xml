@@ -13,6 +13,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -21,7 +22,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="$1 per tap"
+            android:text="1 Festcoin per tap"
             android:id="@+id/upgrade_button"
             android:onClick="incrementTapState"
             android:background="@color/colorPrimary"
@@ -34,7 +35,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Watch video to earn $50k"
+            android:text="Watch video to earn 50k Festcoins"
             android:onClick="showRewardAd"
             android:background="@color/lightGray"
             android:textColor="#FFF"
@@ -51,7 +52,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/disappearing_textview"
             android:layout_marginTop="16dp"
-            android:text="Sorry you don't have enough money to increase your tap rate"
+            android:text="Sorry you don't have enough Festcoins to increase your tap rate."
             android:visibility="gone"
             android:textSize="18sp"
             android:textColor="#000" />

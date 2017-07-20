@@ -14,7 +14,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="$0"
+        android:text="0 Festcoins"
         android:textSize="50sp"
         android:textColor="#000"
         android:gravity="center_horizontal"
@@ -34,7 +34,8 @@
         android:minHeight="80dp"
         android:layout_above="@+id/upgrades_btn"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginBottom="20dp"
+        android:id="@+id/money_btn"/>
 
     <Button
         android:id="@+id/upgrades_btn"
