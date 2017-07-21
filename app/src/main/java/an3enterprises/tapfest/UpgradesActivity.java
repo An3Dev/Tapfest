@@ -25,6 +25,8 @@ import an3enterprises.tapfest.util.IabResult;
 import an3enterprises.tapfest.util.Inventory;
 import an3enterprises.tapfest.util.Purchase;
 
+import static an3enterprises.tapfest.MainActivity.displayFestDiamonds;
+import static an3enterprises.tapfest.MainActivity.displayQuantity;
 import static an3enterprises.tapfest.MainActivity.festDiamonds;
 import static an3enterprises.tapfest.MainActivity.quantity;
 
@@ -61,7 +63,6 @@ public class UpgradesActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
         //Remove notification bar
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_upgrades);
@@ -217,13 +218,14 @@ public class UpgradesActivity extends Activity {
         AlertDialog.Builder builder;
         builder = new AlertDialog.Builder(UpgradesActivity.this);
         builder.setTitle("Buy 200,000 FestCoins");
-        if (festDiamonds >= 100) {
-            builder.setMessage("Cost: 100 FestDiamonds");
+        if (festDiamonds >= 200) {
+            builder.setMessage("Cost: 200 FestDiamonds");
             builder.setPositiveButton("Buy", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    festDiamonds -= 100;
+                    festDiamonds -= 200;
                     quantity += 200000;
+                    Toast.makeText(UpgradesActivity.this, "You just bought 200,000 FestCoins!", Toast.LENGTH_SHORT).show();
                 }
             });
         }if (festDiamonds < 200) {
@@ -233,7 +235,28 @@ public class UpgradesActivity extends Activity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     if (diamondsNeeded <= 80) {
-                        buyFestDiamonds80();
+                        Button buyFestDiamonds80Btn = (Button) findViewById(R.id.buy_festdiamonds_80);
+                        try {
+                            buyFestDiamonds80(buyFestDiamonds80Btn);
+                        } catch (IabHelper.IabAsyncInProgressException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if (diamondsNeeded <= 500 && diamondsNeeded > 80) {
+                        Button buyFestDiamonds500Btn = (Button) findViewById(R.id.buy_festdiamonds_500);
+                        try {
+                            buyFestDiamonds500(buyFestDiamonds500Btn);
+                        } catch (IabHelper.IabAsyncInProgressException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if (diamondsNeeded <= 1000 && diamondsNeeded > 500) {
+                        Button buyFestDiamonds1000Btn = (Button) findViewById(R.id.buy_festdiamonds_1000);
+                        try {
+                            buyFestDiamonds1000(buyFestDiamonds1000Btn);
+                        } catch (IabHelper.IabAsyncInProgressException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             });
@@ -244,14 +267,122 @@ public class UpgradesActivity extends Activity {
                 }
             });
         }builder.show();
+        displayFestDiamonds();
+        displayQuantity();
     }
 
     public void buyFestCoins500(View view) {
-
+        AlertDialog.Builder builder;
+        builder = new AlertDialog.Builder(UpgradesActivity.this);
+        builder.setTitle("Buy 500,000 FestCoins");
+        if (festDiamonds >= 500) {
+            builder.setMessage("Cost: 500 FestDiamonds");
+            builder.setPositiveButton("Buy", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    festDiamonds -= 500;
+                    quantity += 500000;
+                    Toast.makeText(UpgradesActivity.this, "You just bought 500,000 FestCoins!",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }if (festDiamonds < 200) {
+            diamondsNeeded = 200 - festDiamonds;
+            builder.setMessage("Sorry, you need " + diamondsNeeded + " more FestDiamonds.");
+            builder.setPositiveButton("Buy", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if (diamondsNeeded <= 80) {
+                        Button buyFestDiamonds80Btn = (Button) findViewById(R.id.buy_festdiamonds_80);
+                        try {
+                            buyFestDiamonds80(buyFestDiamonds80Btn);
+                        } catch (IabHelper.IabAsyncInProgressException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if (diamondsNeeded <= 500 && diamondsNeeded > 80) {
+                        Button buyFestDiamonds500Btn = (Button) findViewById(R.id.buy_festdiamonds_500);
+                        try {
+                            buyFestDiamonds500(buyFestDiamonds500Btn);
+                        } catch (IabHelper.IabAsyncInProgressException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if (diamondsNeeded <= 1000 && diamondsNeeded > 500) {
+                        Button buyFestDiamonds1000Btn = (Button) findViewById(R.id.buy_festdiamonds_1000);
+                        try {
+                            buyFestDiamonds1000(buyFestDiamonds1000Btn);
+                        } catch (IabHelper.IabAsyncInProgressException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
+            builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+        }builder.show();
+        displayFestDiamonds();
+        displayQuantity();
     }
 
     public void buyFestCoins1000(View view) {
-
+        AlertDialog.Builder builder;
+        builder = new AlertDialog.Builder(UpgradesActivity.this);
+        builder.setTitle("Buy 1,000,000 FestCoins");
+        if (festDiamonds >= 500) {
+            builder.setMessage("Cost: 1,000 FestDiamonds");
+            builder.setPositiveButton("Buy", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    festDiamonds -= 1000;
+                    quantity += 1000000;
+                    Toast.makeText(UpgradesActivity.this, "You just bought 1,000,000 FestCoins!",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }if (festDiamonds < 200) {
+            diamondsNeeded = 200 - festDiamonds;
+            builder.setMessage("Sorry, you need " + diamondsNeeded + " more FestDiamonds.");
+            builder.setPositiveButton("Buy", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if (diamondsNeeded <= 80) {
+                        Button buyFestDiamonds80Btn = (Button) findViewById(R.id.buy_festdiamonds_80);
+                        try {
+                            buyFestDiamonds80(buyFestDiamonds80Btn);
+                        } catch (IabHelper.IabAsyncInProgressException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if (diamondsNeeded <= 500 && diamondsNeeded > 80) {
+                        Button buyFestDiamonds500Btn = (Button) findViewById(R.id.buy_festdiamonds_500);
+                        try {
+                            buyFestDiamonds500(buyFestDiamonds500Btn);
+                        } catch (IabHelper.IabAsyncInProgressException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if (diamondsNeeded <= 1000 && diamondsNeeded > 500) {
+                        Button buyFestDiamonds1000Btn = (Button) findViewById(R.id.buy_festdiamonds_1000);
+                        try {
+                            buyFestDiamonds1000(buyFestDiamonds1000Btn);
+                        } catch (IabHelper.IabAsyncInProgressException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
+            builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+        }builder.show();
+        displayFestDiamonds();
+        displayQuantity();
     }
 
     public void buyFestDiamonds80(View view) throws IabHelper.IabAsyncInProgressException {
