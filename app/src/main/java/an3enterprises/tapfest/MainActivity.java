@@ -1,7 +1,9 @@
 package an3enterprises.tapfest;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
@@ -111,7 +113,6 @@ public class MainActivity extends Activity {
         }else if (quantity == 0) {
             num.setText(quantity + " FestCoins");
         }
-
     }
 
     public static void displayFestDiamonds() {
@@ -175,7 +176,24 @@ public class MainActivity extends Activity {
         SharedPreferences.Editor quantitySavedEditor = quantitySaved.edit();
         quantitySavedEditor.putInt("quantity", quantity);
         quantitySavedEditor.commit();
-        super.onBackPressed();
+        AlertDialog.Builder builder;
+        builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Exit Tapfest?");
+        builder.setMessage("Are you sure you want to exit Tapfest?");
+        builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                MainActivity.this.finish();
+
+            }
+        });
+        builder.setPositiveButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
     }
 
 

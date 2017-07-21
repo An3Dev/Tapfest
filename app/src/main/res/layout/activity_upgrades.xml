@@ -21,7 +21,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="220dp"
 
-                android:contentDescription="Upgrades Image"
+                android:contentDescription="@string/content_descrption_upgrades_image"
                 android:src="@drawable/upgrades_background_image"
                 android:padding="2dp"
                 android:cropToPadding="true"/>
@@ -41,7 +41,7 @@
                 <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="1 FestCoin per tap"
+                android:text="@string/one_fest_coin_per_tap"
                 android:id="@+id/upgrade_button"
                 android:onClick="incrementTapState"
                 android:background="@color/colorPrimary"
@@ -55,16 +55,16 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="FestCoin Shop"
+                    android:text="@string/fest_coin_shop"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center_horizontal"
                     android:textSize="20sp"
-                    android:textColor="#000"/>
+                    android:textColor="#000" />
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="200,000 FestCoins"
+                    android:text="@string/two_hundred_thousand_festcoins"
                     android:id="@+id/buy_festcoins_200"
                     android:onClick="buyFestCoins200"
                     android:background="@color/colorPrimary"
@@ -78,7 +78,7 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="500,000 FestCoins"
+                    android:text="@string/five_hundred_thousand_festcoins"
                     android:id="@+id/buy_festcoins_500"
                     android:onClick="buyFestCoins500"
                     android:background="@color/colorPrimary"
@@ -92,24 +92,9 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="1,000,000 FestCoins"
+                    android:text="@string/one_million_festcoins"
                     android:id="@+id/buy_festcoins_1000"
                     android:onClick="buyFestCoins1000"
-                    android:background="@color/colorPrimary"
-                    android:textColor="#FFF"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:minHeight="70dp"
-                    android:textAllCaps="false"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"/>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="100,000,000 FestCoins"
-                    android:id="@+id/buy_festcoins_1000000"
-                    android:onClick="buyFestCoins1000000"
                     android:background="@color/colorPrimary"
                     android:textColor="#FFF"
                     android:layout_gravity="center"
@@ -122,7 +107,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="FestDiamond Shop"
+                    android:text=""
                     android:layout_gravity="center_horizontal"
                     android:gravity="center_horizontal"
                     android:textSize="20sp"

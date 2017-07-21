@@ -85,12 +85,10 @@ public class UpgradesActivity extends Activity {
 
             @Override
             public void onRewardedVideoAdOpened() {
-                Toast.makeText(UpgradesActivity.this, "Reward video", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onRewardedVideoStarted() {
-                Toast.makeText(UpgradesActivity.this, "Reward video started", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -109,7 +107,6 @@ public class UpgradesActivity extends Activity {
 
             @Override
             public void onRewardedVideoAdLeftApplication() {
-                Toast.makeText(UpgradesActivity.this, "Video left application", Toast.LENGTH_SHORT).show();
             }
 
             @Override

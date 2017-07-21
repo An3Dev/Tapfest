@@ -14,7 +14,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="0 FestCoins"
+        android:text="@string/no_festcoins"
         android:textSize="50sp"
         android:textColor="#000"
         android:gravity="center_horizontal"
@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="increment"
-        android:text="Click me!"
+        android:text="@string/btn_message_tap_here"
         android:textAllCaps="false"
         android:background="@color/colorPrimary"
         android:textColor="#FFF"
@@ -41,8 +41,8 @@
         android:id="@+id/upgrades_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="Upgrades"
+        android:layout_gravity="end"
+        android:text="@string/upgrades_title"
         android:textAllCaps="false"
         android:background="@drawable/round_button"
         android:textColor="#FFF"
@@ -54,8 +54,8 @@
         android:id="@+id/settings_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:text="Settings"
+        android:layout_gravity="start"
+        android:text="@string/title_activity_settings"
         android:textAllCaps="false"
         android:background="@drawable/round_button"
         android:textColor="#FFF"
@@ -77,12 +77,23 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="FestDiamonds: 0"
+        android:text="@string/no_fest_diamonds"
         android:layout_below="@+id/adView"
         android:layout_alignParentStart="true"
         android:layout_marginTop="10dp"
         android:textColor="#000"
-        android:id="@+id/festDiamondText"/>
+        android:id="@+id/festDiamondText"
+        android:textStyle="bold"/>
+
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text=""-->
+        <!--android:layout_below="@+id/festDiamondText"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:textColor="#000"-->
+        <!--android:id="@+id/taps"/>-->
 
 
 </RelativeLayout>
