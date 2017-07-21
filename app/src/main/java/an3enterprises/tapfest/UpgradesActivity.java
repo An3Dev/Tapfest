@@ -403,6 +403,12 @@ public class UpgradesActivity extends Activity {
                 mPurchaseFinishedListener, "buy_fest_diamonds_1000");
     }
 
+    public void buyFestDiamonds1000000(View view) throws IabHelper.IabAsyncInProgressException {
+        ITEM_SKU = "buy_fest_diamonds_1000000";
+        mHelper.launchPurchaseFlow(this, ITEM_SKU, 10001,
+                mPurchaseFinishedListener, "buy_fest_diamonds_1000000");
+    }
+
     @Override
     protected void onPause() {
         SharedPreferences tapRateSaved = getSharedPreferences("tapRate", Context.MODE_PRIVATE);
