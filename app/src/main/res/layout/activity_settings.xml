@@ -8,13 +8,13 @@
     android:orientation="vertical"
     android:layout_margin="16dp">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/title_activity_settings"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:gravity="center_horizontal"/>
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="@string/title_activity_settings"-->
+        <!--android:textSize="20sp"-->
+        <!--android:textColor="@color/black"-->
+        <!--android:gravity="center_horizontal"/>-->
 
     <ListView
         android:layout_width="match_parent"

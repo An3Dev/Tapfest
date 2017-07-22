@@ -50,7 +50,7 @@ public class UpgradesActivity extends Activity {
         tapRateSavedEditor.commit();
         SharedPreferences quantitySaved = getSharedPreferences("quantity", Context.MODE_PRIVATE);
         SharedPreferences.Editor quantitySavedEditor = quantitySaved.edit();
-        quantitySavedEditor.putInt("quantity", quantity);
+        quantitySavedEditor.putLong("quantity", quantity);
         quantitySavedEditor.commit();
         SharedPreferences festDiamondsSP = getSharedPreferences("festDiamonds", Context.MODE_PRIVATE);
         SharedPreferences.Editor festDiamondsEditor = festDiamondsSP.edit();
@@ -73,7 +73,7 @@ public class UpgradesActivity extends Activity {
         upgradeButton = (Button) findViewById((R.id.upgrade_button));
         upgradeButton.setText(tapRate + " FestCoins per tap");
         if (tapRate == 1){
-            Toast.makeText(UpgradesActivity.this, "Tap above to increase FestCoins per tap.", Toast.LENGTH_LONG).show();
+            Snackbar.make(findViewById(R.id.scrollViewUpgrades), "Tap on FestCoins per tap to increase the amount of FestCoins earned per tap.", Snackbar.LENGTH_LONG);
         }
         mAd = MobileAds.getRewardedVideoAdInstance(this);
         mAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
@@ -101,6 +101,7 @@ public class UpgradesActivity extends Activity {
 
             @Override
             public void onRewarded(RewardItem rewardItem) {
+                Snackbar.make(findViewById(R.id.scrollViewUpgrades), "You just reveived 50,000 DestCoins for watching the video!", Snackbar.LENGTH_SHORT);
                 Toast.makeText(UpgradesActivity.this, "You just received 50k FestCoins for watching the video!", Toast.LENGTH_SHORT).show();
                 quantity += 50000;
 
@@ -112,7 +113,6 @@ public class UpgradesActivity extends Activity {
 
             @Override
             public void onRewardedVideoAdFailedToLoad(int i) {
-                Toast.makeText(UpgradesActivity.this, "Video failed to load. Try again later.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -212,6 +212,41 @@ public class UpgradesActivity extends Activity {
         mAd.loadAd("ca-app-pub-7638825445174820/2783317190", new AdRequest.Builder().build());
     }
 
+    public void buyFestCoins50(final View view) {
+        AlertDialog.Builder builder;
+        builder = new AlertDialog.Builder(UpgradesActivity.this);
+        builder.setTitle("Buy 50,000 FestCoins");
+        if (festDiamonds >= 80) {
+            builder.setMessage("Cost: 80 FestDiamonds");
+            builder.setPositiveButton("Buy", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    festDiamonds -= 80;
+                    quantity += 50000;
+                    Snackbar.make(view, "You just bought 50,000 FestCoins!", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            });
+        }if (festDiamonds < 80) {
+            diamondsNeeded = 80 - festDiamonds;
+            builder.setMessage("Sorry, you need " + diamondsNeeded + " more FestDiamonds.");
+            builder.setPositiveButton("Buy", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    determinePurchaseAmount(diamondsNeeded);
+                }
+            });
+            builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+        }builder.show();
+        displayFestDiamonds();
+        displayQuantity();
+    }
+
     public void buyFestCoins200(final View view) {
         AlertDialog.Builder builder;
         builder = new AlertDialog.Builder(UpgradesActivity.this);
@@ -265,7 +300,7 @@ public class UpgradesActivity extends Activity {
         }if (festDiamonds < 500) {
             diamondsNeeded = 500 - festDiamonds;
             builder.setMessage("Sorry, you need " + diamondsNeeded + " more FestDiamonds.");
-            builder.setPositiveButton("Buy", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton("Buy FestDiamonds", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     determinePurchaseAmount(diamondsNeeded);
@@ -285,7 +320,7 @@ public class UpgradesActivity extends Activity {
     public void buyFestCoins1000(final View view) {
         AlertDialog.Builder builder;
         builder = new AlertDialog.Builder(UpgradesActivity.this);
-        builder.setTitle("Buy 1,000,000 FestCoins");
+        builder.setTitle("Buy 1,000,000(M) FestCoins");
         if (festDiamonds >= 1000) {
             builder.setMessage("Cost: 1,000 FestDiamonds");
             builder.setPositiveButton("Buy", new DialogInterface.OnClickListener() {
@@ -293,14 +328,49 @@ public class UpgradesActivity extends Activity {
                 public void onClick(DialogInterface dialog, int which) {
                     festDiamonds -= 1000;
                     quantity += 1000000;
-                    Snackbar.make(view, "You just bought 1,000,000 FestCoins!", Snackbar.LENGTH_LONG)
+                    Snackbar.make(view, "You just bought 1,000,000(M) FestCoins!", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
             });
         }if (festDiamonds < 1000) {
             diamondsNeeded = 1000 - festDiamonds;
             builder.setMessage("Sorry, you need " + diamondsNeeded + " more FestDiamonds.");
+            builder.setPositiveButton("Buy FestDiamonds", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    determinePurchaseAmount(diamondsNeeded);
+                }
+            });
+            builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+        }builder.show();
+        displayFestDiamonds();
+        displayQuantity();
+    }
+
+    public void buyFestCoins1000000(final View view) {
+        AlertDialog.Builder builder;
+        builder = new AlertDialog.Builder(UpgradesActivity.this);
+        builder.setTitle("Buy 1,000,000,000(B) FestCoins");
+        if (festDiamonds >= 1000000) {
+            builder.setMessage("Cost: 1,000,000 FestDiamonds");
             builder.setPositiveButton("Buy", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    festDiamonds -= 1000000;
+                    quantity += 1000000000;
+                    Snackbar.make(view, "You just bought 1,000,000,000(B) FestCoins!", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            });
+        }if (festDiamonds < 1000000) {
+            diamondsNeeded = 1000000 - festDiamonds;
+            builder.setMessage("Sorry, you need " + diamondsNeeded + " more FestDiamonds.");
+            builder.setPositiveButton("Buy FestDiamonds", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     determinePurchaseAmount(diamondsNeeded);
@@ -349,7 +419,7 @@ public class UpgradesActivity extends Activity {
         tapRateSavedEditor.commit();
         SharedPreferences quantitySaved = getSharedPreferences("quantity", Context.MODE_PRIVATE);
         SharedPreferences.Editor quantitySavedEditor = quantitySaved.edit();
-        quantitySavedEditor.putInt("quantity", quantity);
+        quantitySavedEditor.putLong("quantity", quantity);
         quantitySavedEditor.commit();
         SharedPreferences festDiamondsSP = getSharedPreferences("festDiamonds", Context.MODE_PRIVATE);
         SharedPreferences.Editor festDiamondsEditor = festDiamondsSP.edit();
@@ -366,7 +436,7 @@ public class UpgradesActivity extends Activity {
         tapRateSavedEditor.commit();
         SharedPreferences quantitySaved = getSharedPreferences("quantity", Context.MODE_PRIVATE);
         SharedPreferences.Editor quantitySavedEditor = quantitySaved.edit();
-        quantitySavedEditor.putInt("quantity", quantity);
+        quantitySavedEditor.putLong("quantity", quantity);
         quantitySavedEditor.commit();
         SharedPreferences festDiamondsSP = getSharedPreferences("festDiamonds", Context.MODE_PRIVATE);
         SharedPreferences.Editor festDiamondsEditor = festDiamondsSP.edit();
@@ -383,11 +453,11 @@ public class UpgradesActivity extends Activity {
         tapRateSavedEditor.commit();
         SharedPreferences quantitySaved = getSharedPreferences("quantity", Context.MODE_PRIVATE);
         SharedPreferences.Editor quantitySavedEditor = quantitySaved.edit();
-        quantitySavedEditor.putInt("quantity", quantity);
+        quantitySavedEditor.putLong("quantity", quantity);
         quantitySavedEditor.commit();
         SharedPreferences festDiamondsSP = getSharedPreferences("festDiamonds", Context.MODE_PRIVATE);
         SharedPreferences.Editor festDiamondsEditor = festDiamondsSP.edit();
-        festDiamondsEditor.putInt("festDiamonds", festDiamonds);
+        festDiamondsEditor.putLong("festDiamonds", festDiamonds);
         festDiamondsEditor.commit();
         super.onBackPressed();
     }
@@ -400,7 +470,7 @@ public class UpgradesActivity extends Activity {
         tapRateSavedEditor.commit();
         SharedPreferences quantitySaved = getSharedPreferences("quantity", Context.MODE_PRIVATE);
         SharedPreferences.Editor quantitySavedEditor = quantitySaved.edit();
-        quantitySavedEditor.putInt("quantity", quantity);
+        quantitySavedEditor.putLong("quantity", quantity);
         quantitySavedEditor.commit();
         SharedPreferences festDiamondsSP = getSharedPreferences("festDiamonds", Context.MODE_PRIVATE);
         SharedPreferences.Editor festDiamondsEditor = festDiamondsSP.edit();
@@ -476,6 +546,14 @@ public class UpgradesActivity extends Activity {
             Log.i("UpgradesActivity", "buy 10000");
             Button buyFestDiamonds1000000Btn = (Button) findViewById(R.id.buy_festdiamonds_1000000);
             try {
+                buyFestDiamondsMillion(buyFestDiamonds1000000Btn);
+            } catch (IabHelper.IabAsyncInProgressException e) {
+                e.printStackTrace();
+            }
+        }else{
+            try {
+                Log.i("UpgradesActivity", "Else triggered");
+                Button buyFestDiamonds1000000Btn = (Button) findViewById(R.id.buy_festdiamonds_1000000);
                 buyFestDiamondsMillion(buyFestDiamonds1000000Btn);
             } catch (IabHelper.IabAsyncInProgressException e) {
                 e.printStackTrace();

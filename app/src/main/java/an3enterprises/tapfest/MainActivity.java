@@ -8,8 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -27,7 +25,7 @@ import static android.widget.Toast.makeText;
 
 public class MainActivity extends Activity {
 
-    static int quantity = 0;
+    static long quantity = 0;
     static int numOfClicks;
     static int numOfClicksSaved;
     public static TextView num;
@@ -36,6 +34,7 @@ public class MainActivity extends Activity {
     static int festDiamonds;
     static TextView festDiamondText;
     Random rand = new Random();
+    static String quantityString;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,23 +53,24 @@ public class MainActivity extends Activity {
         final int getFestDiamondsInt = getFestDiamonds.getInt("festDiamonds", 0);
         festDiamonds = getFestDiamondsInt;
 
-        if (isAdsGone.matches("false")){
+//        if (isAdsGone.matches("false")){
             mAdView = (AdView) findViewById(R.id.adView);
-            AdRequest adRequest = new AdRequest.Builder().addTestDevice("D89FEDA779180F27568ECBDF5EEF043F").build();
+            AdRequest adRequest = new AdRequest.Builder().build();
             mAdView.loadAd(adRequest);
             num = (TextView) findViewById((R.id.num));
-        }if (isAdsGone.matches("true")){
-            Log.v(MainActivity.class.getName(), "No ads");
-        }
+
+//        }if (isAdsGone.matches("true")){
+//            Log.v(MainActivity.class.getName(), "No ads");
+//            Toast.makeText(this, true + "", Toast.LENGTH_SHORT).show();
+//        }
         SharedPreferences tapRateSaved = getSharedPreferences("tapRate", Context.MODE_PRIVATE);
         final int tapRateSavedInt = tapRateSaved.getInt("tapRate", 1);
         UpgradesActivity.tapRate = tapRateSavedInt;
         SharedPreferences quantitySaved = getSharedPreferences("quantity", Context.MODE_PRIVATE);
-        final int quantitySavedInt = quantitySaved.getInt("quantity", 0);
-        quantity = quantitySavedInt;
+        final long quantitySavedLong = quantitySaved.getLong("quantity", 0);
+        quantity = quantitySavedLong;
         TextView num = (TextView) findViewById(R.id.num);
         festDiamondText = (TextView) findViewById(R.id.festDiamondText);
-
         displayFestDiamonds();
         displayQuantity();
 
@@ -87,8 +87,7 @@ public class MainActivity extends Activity {
         numOfClicksSaved += 1;
         quantity = quantity + UpgradesActivity.tapRate;
         //Important
-        String quantityString = "" + quantity;
-        Snackbar.make(view, quantityString.charAt(0) + "." + quantityString.charAt(1) + quantityString.charAt(2) + "M", Snackbar.LENGTH_SHORT).show();
+
         if (numOfClicks == randNumForBonus){
             startBonusCycle();
             final MediaPlayer kachingSound = MediaPlayer.create(this, R.raw.kaching);
@@ -113,7 +112,56 @@ public class MainActivity extends Activity {
 
     public static void displayQuantity() {
         if (quantity != 0) {
-            num.setText("$" + quantity);
+            // more than a million, less than ten million
+            if (quantity > 1000000 && quantity < 10000000){
+                quantityString = "" + quantity;
+                quantityString =  quantityString.charAt(0) + "." + quantityString.charAt(1) + quantityString.charAt(2) + "M";
+            }
+            // more than ten million, less than one hundred million
+            if (quantity > 10000000 && quantity < 100000000){
+                quantityString = "" + quantity;
+                quantityString =  quantityString.charAt(0) + quantityString.charAt(1) + "." + quantityString.charAt(2) + quantityString.charAt(3) + "M";
+            }
+            // more than one hundred million, less than a billion
+            if (quantity > 100000000 && quantity < 1000000000){
+                quantityString = "" + quantity;
+                quantityString =  quantityString.charAt(0) + quantityString.charAt(1) + quantityString.charAt(2) + "." + quantityString.charAt(3) + quantityString.charAt(4) + "M";
+            }
+            // more than a billion, less than ten billion
+            if (quantity > 1000000000 && quantity < 10000000000L){
+                quantityString = "" + quantity;
+                quantityString =  quantityString.charAt(0) + "." + quantityString.charAt(1) + quantityString.charAt(2) + quantityString.charAt(3) + "B";
+            }
+            // more than ten billion, less than one hundred billion
+            if (quantity > 10000000000L && quantity < 100000000000L){
+                quantityString = "" + quantity;
+                quantityString =  quantityString.charAt(0) + quantityString.charAt(1) + "." + quantityString.charAt(2) + quantityString.charAt(3) + quantityString.charAt(4) + "B";
+            }
+            // more than one hundred billion, less than one trillion
+            if (quantity > 100000000000L && quantity < 1000000000000L){
+                quantityString = "" + quantity;
+                quantityString =  quantityString.charAt(0) + quantityString.charAt(1) + quantityString.charAt(3) + "." + quantityString.charAt(4) + quantityString.charAt(5) + quantityString.charAt(6) + "B";
+            }
+            // more than one trillion, less than ten trillion
+            if (quantity > 1000000000000L && quantity < 10000000000000L){
+                quantityString = "" + quantity;
+                quantityString =  quantityString.charAt(0) + "." + quantityString.charAt(1) + quantityString.charAt(2) + quantityString.charAt(3) + "B";
+            }
+            // more than ten trillion, less than one hundred trillion
+            if (quantity > 10000000000000L && quantity < 100000000000000L){
+                quantityString = "" + quantity;
+                quantityString =  quantityString.charAt(0) + quantityString.charAt(1) + "." + quantityString.charAt(2) + quantityString.charAt(3) + quantityString.charAt(4) + "B";
+            }
+            // more than one hundred trillion, less than one quadrillion
+            if (quantity > 100000000000000L && quantity < 1000000000000000L){
+                quantityString = "" + quantity;
+                quantityString =  quantityString.charAt(0) + quantityString.charAt(1) +quantityString.charAt(2) + "." + quantityString.charAt(3) + quantityString.charAt(4) + quantityString.charAt(5) + "B";
+            }
+            // less than a million. No decimals.
+            if (quantity < 1000000) {
+                quantityString = "" + quantity;
+            }
+            num.setText("$" + quantityString);
         }else if (quantity == 0) {
             num.setText(quantity + " FestCoins");
         }
@@ -133,7 +181,7 @@ public class MainActivity extends Activity {
     public void onDestroy(){
         SharedPreferences quantitySaved = getSharedPreferences("quantity", Context.MODE_PRIVATE);
         SharedPreferences.Editor quantitySavedEditor = quantitySaved.edit();
-        quantitySavedEditor.putInt("quantity", quantity);
+        quantitySavedEditor.putLong("quantity", quantity);
         quantitySavedEditor.commit();
         SharedPreferences festDiamondsSP = getSharedPreferences("festDiamonds", Context.MODE_PRIVATE);
         SharedPreferences.Editor festDiamondsEditor = festDiamondsSP.edit();
@@ -145,7 +193,7 @@ public class MainActivity extends Activity {
     public void onStop(){
         SharedPreferences quantitySaved = getSharedPreferences("quantity", Context.MODE_PRIVATE);
         SharedPreferences.Editor quantitySavedEditor = quantitySaved.edit();
-        quantitySavedEditor.putInt("quantity", quantity);
+        quantitySavedEditor.putLong("quantity", quantity);
         quantitySavedEditor.commit();
         SharedPreferences festDiamondsSP = getSharedPreferences("festDiamonds", Context.MODE_PRIVATE);
         SharedPreferences.Editor festDiamondsEditor = festDiamondsSP.edit();
@@ -168,7 +216,7 @@ public class MainActivity extends Activity {
     protected void onPause() {
         SharedPreferences quantitySaved = getSharedPreferences("quantity", Context.MODE_PRIVATE);
         SharedPreferences.Editor quantitySavedEditor = quantitySaved.edit();
-        quantitySavedEditor.putInt("quantity", quantity);
+        quantitySavedEditor.putLong("quantity", quantity);
         quantitySavedEditor.commit();
         SharedPreferences festDiamondsSP = getSharedPreferences("festDiamonds", Context.MODE_PRIVATE);
         SharedPreferences.Editor festDiamondsEditor = festDiamondsSP.edit();
@@ -181,7 +229,7 @@ public class MainActivity extends Activity {
     protected void onRestart() {
         SharedPreferences quantitySaved = getSharedPreferences("quantity", Context.MODE_PRIVATE);
         SharedPreferences.Editor quantitySavedEditor = quantitySaved.edit();
-        quantitySavedEditor.putInt("quantity", quantity);
+        quantitySavedEditor.putLong("quantity", quantity);
         SharedPreferences festDiamondsSP = getSharedPreferences("festDiamonds", Context.MODE_PRIVATE);
         SharedPreferences.Editor festDiamondsEditor = festDiamondsSP.edit();
         festDiamondsEditor.putInt("festDiamonds", festDiamonds);
@@ -193,7 +241,7 @@ public class MainActivity extends Activity {
     public void onBackPressed() {
         SharedPreferences quantitySaved = getSharedPreferences("quantity", Context.MODE_PRIVATE);
         SharedPreferences.Editor quantitySavedEditor = quantitySaved.edit();
-        quantitySavedEditor.putInt("quantity", quantity);
+        quantitySavedEditor.putLong("quantity", quantity);
         quantitySavedEditor.commit();
         SharedPreferences festDiamondsSP = getSharedPreferences("festDiamonds", Context.MODE_PRIVATE);
         SharedPreferences.Editor festDiamondsEditor = festDiamondsSP.edit();

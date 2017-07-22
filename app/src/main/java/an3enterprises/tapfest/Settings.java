@@ -129,7 +129,6 @@ public class Settings extends Activity {
         ITEM_SKU = "no_ads_purchase";
         mHelper.launchPurchaseFlow(this, ITEM_SKU, 10001,
                 mPurchaseFinishedListener, "no_ads_purchase");
-        Toast.makeText(Settings.this, "Remove ads", Toast.LENGTH_SHORT).show();
 
     }
 

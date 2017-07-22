@@ -54,6 +54,7 @@
                 android:textAllCaps="false"
                 android:layout_marginBottom="10dp"/>
 
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -62,6 +63,20 @@
                     android:gravity="center_horizontal"
                     android:textSize="20sp"
                     android:textColor="#000" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fifty_thousand_festcoins"
+                    android:id="@+id/buy_festcoins_50"
+                    android:onClick="buyFestCoins50"
+                    android:background="@color/colorPrimary"
+                    android:textColor="#FFF"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:minHeight="70dp"
+                    android:textAllCaps="false"
+                    android:layout_marginTop="10dp"/>
 
                 <Button
                     android:layout_width="match_parent"
@@ -97,6 +112,21 @@
                     android:text="@string/one_million_festcoins"
                     android:id="@+id/buy_festcoins_1000"
                     android:onClick="buyFestCoins1000"
+                    android:background="@color/colorPrimary"
+                    android:textColor="#FFF"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:minHeight="70dp"
+                    android:textAllCaps="false"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/one_billion_festcoins"
+                    android:id="@+id/buy_festcoins_1000000"
+                    android:onClick="buyFestCoins1000000"
                     android:background="@color/colorPrimary"
                     android:textColor="#FFF"
                     android:layout_gravity="center"
