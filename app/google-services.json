@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "591272350940-gvl1g7tqv0hsrr6rpuj136db7nvehsv8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "an3enterprises.tapfest",
+            "certificate_hash": "a26ca99acf663999ee33a5f265ec959589275958"
+          }
+        },
+        {
           "client_id": "591272350940-bfq7rg3828iriu838dlo0nlounf6i62o.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "591272350940-bfq7rg3828iriu838dlo0nlounf6i62o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

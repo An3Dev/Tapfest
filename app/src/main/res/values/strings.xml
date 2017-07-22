@@ -84,5 +84,6 @@
     <string name="two_hundred_thousand_festcoins">"200,000 FestCoins"</string>
     <string name="five_hundred_thousand_festcoins">"500,000 FestCoins"</string>
     <string name="one_million_festcoins">"1,000,000 FestCoins"</string>
+    <string name="fest_diamond_shop">FestDiamond Shop</string>
 
 </resources>

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -85,6 +86,9 @@ public class MainActivity extends Activity {
         numOfClicks += 1;
         numOfClicksSaved += 1;
         quantity = quantity + UpgradesActivity.tapRate;
+        //Important
+        String quantityString = "" + quantity;
+        Snackbar.make(view, quantityString.charAt(0) + "." + quantityString.charAt(1) + quantityString.charAt(2) + "M", Snackbar.LENGTH_SHORT).show();
         if (numOfClicks == randNumForBonus){
             startBonusCycle();
             final MediaPlayer kachingSound = MediaPlayer.create(this, R.raw.kaching);
@@ -116,7 +120,7 @@ public class MainActivity extends Activity {
     }
 
     public static void displayFestDiamonds() {
-        festDiamondText.setText("FestDiamonds: " + festDiamonds);
+        festDiamondText.setText(festDiamonds + " FestDiamonds");
     }
 
 
@@ -131,6 +135,10 @@ public class MainActivity extends Activity {
         SharedPreferences.Editor quantitySavedEditor = quantitySaved.edit();
         quantitySavedEditor.putInt("quantity", quantity);
         quantitySavedEditor.commit();
+        SharedPreferences festDiamondsSP = getSharedPreferences("festDiamonds", Context.MODE_PRIVATE);
+        SharedPreferences.Editor festDiamondsEditor = festDiamondsSP.edit();
+        festDiamondsEditor.putInt("festDiamonds", festDiamonds);
+        festDiamondsEditor.commit();
         super.onDestroy();
     }
     @Override
@@ -139,6 +147,10 @@ public class MainActivity extends Activity {
         SharedPreferences.Editor quantitySavedEditor = quantitySaved.edit();
         quantitySavedEditor.putInt("quantity", quantity);
         quantitySavedEditor.commit();
+        SharedPreferences festDiamondsSP = getSharedPreferences("festDiamonds", Context.MODE_PRIVATE);
+        SharedPreferences.Editor festDiamondsEditor = festDiamondsSP.edit();
+        festDiamondsEditor.putInt("festDiamonds", festDiamonds);
+        festDiamondsEditor.commit();
         super.onStop();
     }
 
@@ -158,6 +170,10 @@ public class MainActivity extends Activity {
         SharedPreferences.Editor quantitySavedEditor = quantitySaved.edit();
         quantitySavedEditor.putInt("quantity", quantity);
         quantitySavedEditor.commit();
+        SharedPreferences festDiamondsSP = getSharedPreferences("festDiamonds", Context.MODE_PRIVATE);
+        SharedPreferences.Editor festDiamondsEditor = festDiamondsSP.edit();
+        festDiamondsEditor.putInt("festDiamonds", festDiamonds);
+        festDiamondsEditor.commit();
         super.onPause();
     }
 
@@ -166,7 +182,10 @@ public class MainActivity extends Activity {
         SharedPreferences quantitySaved = getSharedPreferences("quantity", Context.MODE_PRIVATE);
         SharedPreferences.Editor quantitySavedEditor = quantitySaved.edit();
         quantitySavedEditor.putInt("quantity", quantity);
-        quantitySavedEditor.commit();
+        SharedPreferences festDiamondsSP = getSharedPreferences("festDiamonds", Context.MODE_PRIVATE);
+        SharedPreferences.Editor festDiamondsEditor = festDiamondsSP.edit();
+        festDiamondsEditor.putInt("festDiamonds", festDiamonds);
+        festDiamondsEditor.commit();
         super.onRestart();
     }
 
@@ -176,6 +195,10 @@ public class MainActivity extends Activity {
         SharedPreferences.Editor quantitySavedEditor = quantitySaved.edit();
         quantitySavedEditor.putInt("quantity", quantity);
         quantitySavedEditor.commit();
+        SharedPreferences festDiamondsSP = getSharedPreferences("festDiamonds", Context.MODE_PRIVATE);
+        SharedPreferences.Editor festDiamondsEditor = festDiamondsSP.edit();
+        festDiamondsEditor.putInt("festDiamonds", festDiamonds);
+        festDiamondsEditor.commit();
         AlertDialog.Builder builder;
         builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("Exit Tapfest?");

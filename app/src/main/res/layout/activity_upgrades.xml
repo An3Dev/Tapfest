@@ -2,7 +2,8 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/scrollViewUpgrades">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -10,7 +11,8 @@
         android:layout_height="match_parent"
         tools:context="an3enterprises.tapfest.UpgradesActivity"
         android:orientation="vertical"
-        android:layout_marginBottom="16dp">
+        android:layout_marginBottom="16dp"
+        android:id="@+id/linear_layout_upgrades">
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -107,7 +109,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:text="@string/fest_diamond_shop"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center_horizontal"
                     android:textSize="20sp"
@@ -118,7 +120,7 @@
                     android:layout_height="wrap_content"
                     android:text="80 FestDiamonds"
                     android:id="@+id/buy_festdiamonds_80"
-                    android:onClick="buyFestDiamonds80"
+                    android:onClick="buyFestDiamondseighty"
                     android:background="@color/colorPrimary"
                     android:textColor="#FFF"
                     android:layout_gravity="center"
@@ -134,7 +136,7 @@
                     android:layout_height="wrap_content"
                     android:text="500 FestDiamonds"
                     android:id="@+id/buy_festdiamonds_500"
-                    android:onClick="buyFestDiamonds500"
+                    android:onClick="buyFestDiamonds5hundred"
                     android:background="@color/colorPrimary"
                     android:textColor="#FFF"
                     android:layout_gravity="center"
@@ -148,7 +150,7 @@
                     android:layout_height="wrap_content"
                     android:text="1,000 FestDiamonds"
                     android:id="@+id/buy_festdiamonds_1000"
-                    android:onClick="buyFestDiamonds1000"
+                    android:onClick="buyFestDiamondsThousand"
                     android:background="@color/colorPrimary"
                     android:textColor="#FFF"
                     android:layout_gravity="center"
@@ -163,7 +165,7 @@
                     android:layout_height="wrap_content"
                     android:text="1,000,000 FestDiamonds"
                     android:id="@+id/buy_festdiamonds_1000000"
-                    android:onClick="buyFestDiamonds1000000"
+                    android:onClick="buyFestDiamondsMillion"
                     android:background="@color/colorPrimary"
                     android:textColor="#FFF"
                     android:layout_gravity="center"
