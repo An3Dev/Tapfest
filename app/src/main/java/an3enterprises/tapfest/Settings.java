@@ -153,7 +153,7 @@ public class Settings extends Activity {
                                 SharedPreferences.Editor cheatCodeUsedEditor = cheatCodeUsed.edit();
                                 cheatCodeUsedEditor.putString("isCheatCodeUsed", "true");
                                 cheatCodeUsedEditor.commit();
-                                Snackbar.make(findViewById(R.id.linearlayout_settings), "You just earned 1,000,000(M) FestCoins! Use them wisely.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                                Snackbar.make(findViewById(R.id.linearlayout_settings), "You just earned 1,000,000(M) FestDiamonds! Use them wisely.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                                 wantToCloseDialog = true;
 
 

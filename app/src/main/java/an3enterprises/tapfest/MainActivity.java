@@ -32,6 +32,8 @@ public class MainActivity extends Activity {
     static TextView festDiamondText;
     Random rand = new Random();
     static String quantityString;
+    static int maxBonus;
+    static int leastBonus;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,7 +95,19 @@ public class MainActivity extends Activity {
             final MediaPlayer kachingSound = MediaPlayer.create(this, R.raw.kaching);
             kachingSound.start();
             Random bonus = new Random();
-            int bonusInt = bonus.nextInt(50000) + 10000;
+            if (quantity + "".length() > 9 && quantity + "".length() < 12) {
+               maxBonus = 200000;
+                leastBonus = 50000;
+            }
+            if (quantity + "".length() > 12 && quantity + "".length() < 15) {
+                maxBonus = 500000;
+                leastBonus = 100000;
+            }
+            if (quantity + "".length() > 15) {
+                maxBonus = 1000000;
+                leastBonus = 250000;
+            }
+            int bonusInt = bonus.nextInt(maxBonus) + leastBonus;
             quantity += bonusInt;
             festDiamonds += 1;
             Snackbar.make(view, "Bonus: $" + bonusInt + " + 1 FestDiamond", Snackbar.LENGTH_LONG)
