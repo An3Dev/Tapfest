@@ -8,20 +8,17 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
 import java.util.Random;
-
-import static android.widget.Toast.makeText;
 
 public class MainActivity extends Activity {
 
@@ -79,6 +76,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         displayQuantity();
+        displayFestDiamonds();
         super.onResume();
     }
 
@@ -86,8 +84,10 @@ public class MainActivity extends Activity {
         numOfClicks += 1;
         numOfClicksSaved += 1;
         quantity = quantity + UpgradesActivity.tapRate;
-        //Important
-
+        if (quantity == 50) {
+            Snackbar.make(view, "Go to Upgrades to earn more FestCoins for every tap", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        }
         if (numOfClicks == randNumForBonus){
             startBonusCycle();
             final MediaPlayer kachingSound = MediaPlayer.create(this, R.raw.kaching);
@@ -95,9 +95,17 @@ public class MainActivity extends Activity {
             Random bonus = new Random();
             int bonusInt = bonus.nextInt(50000) + 10000;
             quantity += bonusInt;
-            Toast toast = makeText(MainActivity.this,"Bonus: " + "$" + bonusInt, Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.TOP, 0, 0);
-            toast.show();
+            festDiamonds += 1;
+            Snackbar.make(view, "Bonus: $" + bonusInt + " + 1 FestDiamond", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+            SharedPreferences festDiamondsSP = getSharedPreferences("festDiamonds", Context.MODE_PRIVATE);
+            SharedPreferences.Editor festDiamondsEditor = festDiamondsSP.edit();
+            festDiamondsEditor.putInt("festDiamonds", festDiamonds);
+            festDiamondsEditor.commit();
+            SharedPreferences quantitySaved = getSharedPreferences("quantity", Context.MODE_PRIVATE);
+            SharedPreferences.Editor quantitySavedEditor = quantitySaved.edit();
+            quantitySavedEditor.putLong("quantity", quantity);
+            quantitySavedEditor.commit();
         }if (numOfClicksSaved % 1000 == 0) {
             festDiamonds += 1;
             displayFestDiamonds();
@@ -107,7 +115,7 @@ public class MainActivity extends Activity {
             festDiamondsEditor.commit();
         }
         displayQuantity();
-
+        displayFestDiamonds();
     }
 
     public static void displayQuantity() {
@@ -118,51 +126,51 @@ public class MainActivity extends Activity {
                 quantityString =  quantityString.charAt(0) + "." + quantityString.charAt(1) + quantityString.charAt(2) + "M";
             }
             // more than ten million, less than one hundred million
-            if (quantity > 10000000 && quantity < 100000000){
+            else if (quantity > 10000000 && quantity < 100000000){
                 quantityString = "" + quantity;
-                quantityString =  quantityString.charAt(0) + quantityString.charAt(1) + "." + quantityString.charAt(2) + quantityString.charAt(3) + "M";
+                quantityString = quantityString.charAt(0) + "" + quantityString.charAt(1) + "." + quantityString.charAt(2) + quantityString.charAt(3) + "M";
             }
             // more than one hundred million, less than a billion
-            if (quantity > 100000000 && quantity < 1000000000){
+            else if (quantity > 100000000 && quantity < 1000000000){
                 quantityString = "" + quantity;
-                quantityString =  quantityString.charAt(0) + quantityString.charAt(1) + quantityString.charAt(2) + "." + quantityString.charAt(3) + quantityString.charAt(4) + "M";
+                quantityString =  quantityString.charAt(0) + "" + quantityString.charAt(1) + "" + quantityString.charAt(2) + "." + quantityString.charAt(3) + quantityString.charAt(4) + "M";
             }
             // more than a billion, less than ten billion
-            if (quantity > 1000000000 && quantity < 10000000000L){
+            else if (quantity > 1000000000 && quantity < 10000000000L){
                 quantityString = "" + quantity;
                 quantityString =  quantityString.charAt(0) + "." + quantityString.charAt(1) + quantityString.charAt(2) + quantityString.charAt(3) + "B";
             }
             // more than ten billion, less than one hundred billion
-            if (quantity > 10000000000L && quantity < 100000000000L){
+            else if (quantity > 10000000000L && quantity < 100000000000L){
                 quantityString = "" + quantity;
-                quantityString =  quantityString.charAt(0) + quantityString.charAt(1) + "." + quantityString.charAt(2) + quantityString.charAt(3) + quantityString.charAt(4) + "B";
+                quantityString =  quantityString.charAt(0) + "" + quantityString.charAt(1) + "." + quantityString.charAt(2) + "" + quantityString.charAt(3) + "" + quantityString.charAt(4) + "" + quantityString.charAt(5) + "" + "B";
             }
             // more than one hundred billion, less than one trillion
-            if (quantity > 100000000000L && quantity < 1000000000000L){
+            else if (quantity > 100000000000L && quantity < 1000000000000L){
                 quantityString = "" + quantity;
-                quantityString =  quantityString.charAt(0) + quantityString.charAt(1) + quantityString.charAt(3) + "." + quantityString.charAt(4) + quantityString.charAt(5) + quantityString.charAt(6) + "B";
+                quantityString =  quantityString.charAt(0) + "" + quantityString.charAt(1) + "" + quantityString.charAt(3) + "." + quantityString.charAt(4) + quantityString.charAt(5) + quantityString.charAt(6) + "B";
             }
             // more than one trillion, less than ten trillion
-            if (quantity > 1000000000000L && quantity < 10000000000000L){
+            else if (quantity > 1000000000000L && quantity < 10000000000000L){
                 quantityString = "" + quantity;
                 quantityString =  quantityString.charAt(0) + "." + quantityString.charAt(1) + quantityString.charAt(2) + quantityString.charAt(3) + "B";
             }
             // more than ten trillion, less than one hundred trillion
-            if (quantity > 10000000000000L && quantity < 100000000000000L){
+            else if (quantity > 10000000000000L && quantity < 100000000000000L){
                 quantityString = "" + quantity;
-                quantityString =  quantityString.charAt(0) + quantityString.charAt(1) + "." + quantityString.charAt(2) + quantityString.charAt(3) + quantityString.charAt(4) + "B";
+                quantityString =  quantityString.charAt(0) + "" + quantityString.charAt(1) + "." + quantityString.charAt(2) + quantityString.charAt(3) + quantityString.charAt(4) + "B";
             }
             // more than one hundred trillion, less than one quadrillion
-            if (quantity > 100000000000000L && quantity < 1000000000000000L){
+            else if (quantity > 100000000000000L && quantity < 1000000000000000L){
                 quantityString = "" + quantity;
-                quantityString =  quantityString.charAt(0) + quantityString.charAt(1) +quantityString.charAt(2) + "." + quantityString.charAt(3) + quantityString.charAt(4) + quantityString.charAt(5) + "B";
+                quantityString =  quantityString.charAt(0) + "" + quantityString.charAt(1) + "" + quantityString.charAt(2) + "." + quantityString.charAt(3) + quantityString.charAt(4) + quantityString.charAt(5) + "B";
             }
             // less than a million. No decimals.
-            if (quantity < 1000000) {
+            else if (quantity < 1000000) {
                 quantityString = "" + quantity;
             }
             num.setText("$" + quantityString);
-        }else if (quantity == 0) {
+        }if (quantity == 0) {
             num.setText(quantity + " FestCoins");
         }
     }

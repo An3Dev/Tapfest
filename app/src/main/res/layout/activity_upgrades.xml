@@ -41,18 +41,32 @@
                 android:layout_marginRight="16dp">
 
                 <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/one_fest_coin_per_tap"
-                android:id="@+id/upgrade_button"
-                android:onClick="incrementTapState"
-                android:background="@color/colorPrimary"
-                android:textColor="#FFF"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:minHeight="70dp"
-                android:textAllCaps="false"
-                android:layout_marginBottom="10dp"/>
+                    android:id="@+id/upgrade_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center"
+                    android:minHeight="70dp"
+                    android:onClick="incrementTapState"
+                    android:text="@string/one_fest_coin_per_tap"
+                    android:textAllCaps="false"
+                    android:textColor="#FFF" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/double_tap_rate_amount"
+                    android:id="@+id/double_tap_amount"
+                    android:onClick="doubleTapRateAmount"
+                    android:background="@color/colorPrimary"
+                    android:textColor="#FFF"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:minHeight="70dp"
+                    android:textAllCaps="false"
+                    android:layout_marginBottom="10dp"/>
 
 
                 <TextView

@@ -9,8 +9,8 @@ android {
         applicationId "an3enterprises.tapfest"
         minSdkVersion 21
         targetSdkVersion 25
-        versionCode 5
-        versionName "5.0"
+        versionCode 6
+        versionName "6.0"
         multiDexEnabled true
     }
     buildTypes {

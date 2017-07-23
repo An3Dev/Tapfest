@@ -136,6 +136,16 @@ public class UpgradesActivity extends Activity {
                                        }
                                    });
 
+        upgradeButton.setOnLongClickListener(new View.OnLongClickListener() {
+
+            @Override
+            public boolean onLongClick(View v) {
+
+
+                return true;
+            }
+        });
+
     }
 
     public void consumeItem() throws IabHelper.IabAsyncInProgressException {
@@ -162,9 +172,7 @@ public class UpgradesActivity extends Activity {
 
                     if (result.isSuccess()) {
                         Toast.makeText(UpgradesActivity.this, "Success", Toast.LENGTH_SHORT).show();
-                        SharedPreferences adsGone = getSharedPreferences("adsGone", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor adsGoneEditor = adsGone.edit();
-                        adsGoneEditor.putString("adsGone", "true");
+
                     } else {
                         // handle error
                     }
@@ -179,7 +187,8 @@ public class UpgradesActivity extends Activity {
         if (quantity < tapRate + 1) {
             upgradeButton.setBackgroundColor(getResources().getColor(R.color.lightGray));
             upgradeButton.setEnabled(false);
-            Toast.makeText(UpgradesActivity.this, "You don't have enough FestCoins.", Toast.LENGTH_SHORT).show();
+            Snackbar.make(view, "You don't have enough FestCoins", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
 //            final TextView mSwitcher = (TextView) findViewById(R.id.disappearing_textview);
 //            mSwitcher.setText("");
 //            mSwitcher.setVisibility(View.VISIBLE);
@@ -197,6 +206,7 @@ public class UpgradesActivity extends Activity {
         } else {
             quantity = quantity - tapRate;
             tapRate = tapRate + 1;
+            upgradeButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
             upgradeButton.setText(tapRate + " FestCoins per tap");
             MainActivity.displayQuantity();
 
@@ -559,6 +569,58 @@ public class UpgradesActivity extends Activity {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void doubleTapRateAmount(View view) {
+        AlertDialog.Builder builder;
+        builder = new AlertDialog.Builder(UpgradesActivity.this);
+        builder.setTitle("Increase Tap Rate Amount");
+        builder.setMessage("Cost: 20 festDiamonds");
+        if (festDiamonds >= 20) {
+            builder.setPositiveButton("Increase Amount", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    festDiamonds -= 20;
+                    tapRate += 1000;
+                    Snackbar.make(findViewById(R.id.linear_layout_upgrades), "The tap rate was doubled!", Snackbar.LENGTH_LONG);
+                    SharedPreferences tapRateSaved = getSharedPreferences("tapRate", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor tapRateSavedEditor = tapRateSaved.edit();
+                    tapRateSavedEditor.putInt("tapRate", tapRate);
+                    tapRateSavedEditor.commit();
+                    SharedPreferences quantitySaved = getSharedPreferences("quantity", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor quantitySavedEditor = quantitySaved.edit();
+                    quantitySavedEditor.putLong("quantity", quantity);
+                    quantitySavedEditor.commit();
+                    SharedPreferences festDiamondsSP = getSharedPreferences("festDiamonds", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor festDiamondsEditor = festDiamondsSP.edit();
+                    festDiamondsEditor.putInt("festDiamonds", festDiamonds);
+                    festDiamondsEditor.commit();
+                    upgradeButton.setText(tapRate + " FestCoins per tap");
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+        }if (festDiamonds < 20) {
+            builder.setPositiveButton("Buy", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    int amountNeeded = 20 - festDiamonds;
+                    determinePurchaseAmount(amountNeeded);
+                }
+            });
+            builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+        }
+
+        builder.show();
     }
 
 

@@ -9,7 +9,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="an3enterprises.tapfest.MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/relative_layout_main">
 
     <TextView
         android:layout_width="match_parent"

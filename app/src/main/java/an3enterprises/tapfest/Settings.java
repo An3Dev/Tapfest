@@ -1,17 +1,23 @@
 package an3enterprises.tapfest;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -22,6 +28,9 @@ import an3enterprises.tapfest.util.IabHelper;
 import an3enterprises.tapfest.util.IabResult;
 import an3enterprises.tapfest.util.Inventory;
 import an3enterprises.tapfest.util.Purchase;
+
+import static an3enterprises.tapfest.MainActivity.festDiamonds;
+import static an3enterprises.tapfest.MainActivity.quantity;
 
 public class Settings extends Activity {
 
@@ -45,8 +54,7 @@ public class Settings extends Activity {
 
         mHelper.startSetup(new
                                    IabHelper.OnIabSetupFinishedListener() {
-                                       public void onIabSetupFinished(IabResult result)
-                                       {
+                                       public void onIabSetupFinished(IabResult result) {
                                            if (!result.isSuccess()) {
                                                Log.d(TAG, "In-app Billing setup failed: " + result);
                                            } else {
@@ -60,25 +68,32 @@ public class Settings extends Activity {
 
         setContentView(R.layout.activity_settings);
         lv = (ListView) findViewById(R.id.settings_listview);
-        g.add("\nRemove ads\n");
+        //Add this line in 30 days.
+//        g.add("\nRemove ads\n");
         g.add("\nShare\n");
         g.add("\nOther games & apps\n");
+        SharedPreferences cheatCodeUsed = getSharedPreferences("isCheatCodeUsed", Context.MODE_PRIVATE);
+        String cheatCodeUsedString = cheatCodeUsed.getString("isCheatCodeUsed", "false");
+        if (cheatCodeUsedString.matches("false")) {
+            g.add("\nCheat code\n");
+        }
+
         settings = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, g);
         lv.setAdapter(settings);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (g.get(position).matches("\nRemove ads\n")){
+            public void onItemClick(AdapterView<?> parent, final View view, int position, final long id) {
+                if (g.get(position).matches("\nRemove ads\n")) {
                     try {
                         removeAds();
                     } catch (IabHelper.IabAsyncInProgressException e) {
                         e.printStackTrace();
                     }
                 }
-                if (g.get(position).matches("\nShare\n")){
+                if (g.get(position).matches("\nShare\n")) {
                     onInviteClicked();
                 }
-                if(g.get(position).matches("\nOther games & apps\n")){
+                if (g.get(position).matches("\nOther games & apps\n")) {
                     final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
                     try {
                         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://search?q=pub:An3Enterprises")));
@@ -86,9 +101,79 @@ public class Settings extends Activity {
                         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/developer?id=An3Enterprises")));
                     }
                 }
+                if (g.get(position).matches("\nCheat code\n")) {
+                    AlertDialog.Builder builder;
+                    builder = new AlertDialog.Builder(Settings.this);
+                    builder.setTitle("Cheat Code");
+                    builder.setMessage("Enter a cheat code");
+                    final EditText input = new EditText(Settings.this);
+                    input.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
+                    ListView.LayoutParams lp = new ListView.LayoutParams(ListView.LayoutParams.WRAP_CONTENT, ListView.LayoutParams.WRAP_CONTENT);
+                    input.setHint("The secret cheat code");
+                    input.setLayoutParams(lp);
+                    builder.setView(input);
+                    builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                        }
+                    });
+                    builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    final AlertDialog dialog = builder.create();
+
+                    dialog.show();
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Boolean wantToCloseDialog = false;
+                            if (input.getText().toString().isEmpty()) {
+                                Toast.makeText(Settings.this, "The cheat code is not blank. Nice try.", Toast.LENGTH_SHORT).show();
+                                View view = Settings.this.getCurrentFocus();
+                                if (view != null) {
+                                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                                }
+                            }
+
+                            if (input.getText().toString().length() > 0 && input.getText().toString().matches("La Mosca")) {
+                                festDiamonds += 1000000;
+                                SharedPreferences quantitySaved = getSharedPreferences("quantity", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor quantitySavedEditor = quantitySaved.edit();
+                                quantitySavedEditor.putLong("quantity", quantity);
+                                quantitySavedEditor.commit();
+                                SharedPreferences festDiamondsSP = getSharedPreferences("festDiamonds", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor festDiamondsEditor = festDiamondsSP.edit();
+                                festDiamondsEditor.putInt("festDiamonds", festDiamonds);
+                                festDiamondsEditor.commit();
+                                SharedPreferences cheatCodeUsed = getSharedPreferences("isCheatCodeUsed", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor cheatCodeUsedEditor = cheatCodeUsed.edit();
+                                cheatCodeUsedEditor.putString("isCheatCodeUsed", "true");
+                                cheatCodeUsedEditor.commit();
+                                Snackbar.make(findViewById(R.id.linearlayout_settings), "You just earned 1,000,000(M) FestCoins! Use them wisely.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                                wantToCloseDialog = true;
+
+
+                            } if(!input.getText().toString().isEmpty() && input.getText().toString().length() != 0 && !input.getText().toString().matches("La Mosca")) {
+                                Toast.makeText(Settings.this, "That's not the cheat code...Sorry.", Toast.LENGTH_SHORT).show();
+                                getWindow().setSoftInputMode(
+                                        WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+                                );
+                            }
+                            if (wantToCloseDialog) {
+                                dialog.dismiss();
+                            }
+                        }
+                    });
+                }
             }
         });
     }
+
+
 
     public void consumeItem() throws IabHelper.IabAsyncInProgressException {
         mHelper.queryInventoryAsync(mReceivedInventoryListener);
