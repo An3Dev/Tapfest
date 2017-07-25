@@ -16,13 +16,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/no_festcoins"
-        android:textSize="50sp"
+        android:textSize="90sp"
         android:textColor="#000"
         android:gravity="center_horizontal"
         android:id="@+id/num"
-        android:layout_below="@+id/adView"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="129dp" />
+        android:layout_marginBottom="191dp"
+        android:layout_above="@+id/money_btn"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="match_parent"
@@ -32,10 +32,11 @@
         android:textAllCaps="false"
         android:background="@color/colorPrimary"
         android:textColor="#FFF"
-        android:minHeight="80dp"
+        android:minHeight="160dp"
+        android:textSize="30dp"
         android:layout_above="@+id/upgrades_btn"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="40dp"
         android:id="@+id/money_btn"/>
 
     <Button
@@ -49,7 +50,8 @@
         android:textColor="#FFF"
         android:onClick="upgradesScreen"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:minHeight="60dp"/>
 
     <Button
         android:id="@+id/settings_btn"
@@ -63,7 +65,7 @@
         android:onClick="goToSettings"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:minHeight="50dp"/>
+        android:minHeight="60dp"/>
 
     <com.google.android.gms.ads.AdView
         xmlns:ads="http://schemas.android.com/apk/res-auto"
@@ -85,16 +87,10 @@
         android:layout_marginTop="10dp"
         android:textColor="#000"
         android:id="@+id/festDiamondText"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:textSize="25sp"/>
 
-    <ProgressBar
-        android:id="@+id/tillShowPB"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/num"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="90dp" />
+
 
     <!--<TextView-->
         <!--android:layout_width="wrap_content"-->

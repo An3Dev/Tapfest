@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/scrollViewUpgrades">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="an3enterprises.tapfest.UpgradesActivity"
+        android:orientation="vertical"
+        android:layout_marginBottom="16dp"
+        android:id="@+id/linear_layout_upgrades">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#d9d9d9"
+            android:layout_marginBottom="5dp">
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="300dp"
+
+                android:contentDescription="@string/content_descrption_upgrades_image"
+                android:src="@drawable/upgrades_background_image"
+                android:padding="2dp"
+                android:cropToPadding="true"/>
+        </FrameLayout>
+
+        <!--<ScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp">
+
+            <Button
+                android:id="@+id/upgrade_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:minHeight="140dp"
+                android:textSize="25sp"
+                android:onClick="incrementTapState"
+                android:text="@string/one_fest_coin_per_tap"
+                android:textAllCaps="false"
+                android:textColor="#FFF" />
+
+            <Button
+                android:id="@+id/double_tap_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:minHeight="140dp"
+                android:textSize="25sp"
+                android:onClick="doubleTapRateAmount"
+                android:text="@string/double_tap_rate_amount"
+                android:textAllCaps="false"
+                android:textColor="#FFF" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/fest_coin_shop"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:textSize="35sp"
+                android:textColor="#000" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/fifty_thousand_festcoins"
+                android:id="@+id/buy_festcoins_50"
+                android:onClick="buyFestCoins50"
+                android:background="@color/colorPrimary"
+                android:textColor="#FFF"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:minHeight="140dp"
+                android:textSize="25sp"
+                android:textAllCaps="false"
+                android:layout_marginTop="20dp"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/two_hundred_thousand_festcoins"
+                android:id="@+id/buy_festcoins_200"
+                android:onClick="buyFestCoins200"
+                android:background="@color/colorPrimary"
+                android:textColor="#FFF"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:minHeight="140dp"
+                android:textSize="25sp"
+                android:textAllCaps="false"
+                android:layout_marginTop="20dp"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/five_hundred_thousand_festcoins"
+                android:id="@+id/buy_festcoins_500"
+                android:onClick="buyFestCoins500"
+                android:background="@color/colorPrimary"
+                android:textColor="#FFF"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:minHeight="140dp"
+                android:textSize="25sp"
+                android:textAllCaps="false"
+                android:layout_marginTop="20dp"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/one_million_festcoins"
+                android:id="@+id/buy_festcoins_1000"
+                android:onClick="buyFestCoins1000"
+                android:background="@color/colorPrimary"
+                android:textColor="#FFF"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:minHeight="140dp"
+                android:textSize="25sp"
+                android:textAllCaps="false"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/one_billion_festcoins"
+                android:id="@+id/buy_festcoins_1000000"
+                android:onClick="buyFestCoins1000000"
+                android:background="@color/colorPrimary"
+                android:textColor="#FFF"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:minHeight="140dp"
+                android:textSize="25sp"
+                android:textAllCaps="false"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/fest_diamond_shop"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:textSize="35sp"
+                android:textColor="#000"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="80 FestDiamonds"
+                android:id="@+id/buy_festdiamonds_80"
+                android:onClick="buyFestDiamondseighty"
+                android:background="@color/colorPrimary"
+                android:textColor="#FFF"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:minHeight="140dp"
+                android:textSize="25sp"
+                android:textAllCaps="false"
+                android:layout_marginTop="20dp"/>
+
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="500 FestDiamonds"
+                android:id="@+id/buy_festdiamonds_500"
+                android:onClick="buyFestDiamonds5hundred"
+                android:background="@color/colorPrimary"
+                android:textColor="#FFF"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:minHeight="140dp"
+                android:textSize="25sp"
+                android:textAllCaps="false"
+                android:layout_marginTop="20dp"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1,000 FestDiamonds"
+                android:id="@+id/buy_festdiamonds_1000"
+                android:onClick="buyFestDiamondsThousand"
+                android:background="@color/colorPrimary"
+                android:textColor="#FFF"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:minHeight="140dp"
+                android:textSize="25sp"
+                android:textAllCaps="false"
+                android:layout_marginTop="20dp" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1,000,000 FestDiamonds"
+                android:id="@+id/buy_festdiamonds_1000000"
+                android:onClick="buyFestDiamondsMillion"
+                android:background="@color/colorPrimary"
+                android:textColor="#FFF"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:minHeight="140dp"
+                android:textSize="25sp"
+                android:textAllCaps="false"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Extras"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:textSize="35sp"
+                android:textColor="#000"/>
+
+            <Button
+                android:id="@+id/reward_ad_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/lightGray"
+                android:enabled="false"
+                android:gravity="center"
+                android:minHeight="140dp"
+                android:textSize="25sp"
+                android:onClick="showRewardAd"
+                android:text="Watch video to earn 50k Festcoins"
+                android:textAllCaps="false"
+                android:textColor="#FFF" />
+
+
+        </LinearLayout>
+
+        <!--</ScrollView>-->
+
+    </LinearLayout>
+</ScrollView>

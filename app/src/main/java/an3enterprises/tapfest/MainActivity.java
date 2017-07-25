@@ -9,9 +9,11 @@ import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
@@ -19,6 +21,8 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
 import java.util.Random;
+
+import static an3enterprises.tapfest.UpgradesActivity.tapRate;
 
 public class MainActivity extends Activity {
 
@@ -34,6 +38,11 @@ public class MainActivity extends Activity {
     static String quantityString;
     static int maxBonus;
     static int leastBonus;
+    static ProgressBar tapsTillShowPB;
+    static double tapsTillShow;
+    static String letter;
+    static String TAG;
+    static boolean isReturning;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,14 +73,17 @@ public class MainActivity extends Activity {
 //        }
         SharedPreferences tapRateSaved = getSharedPreferences("tapRate", Context.MODE_PRIVATE);
         final int tapRateSavedInt = tapRateSaved.getInt("tapRate", 1);
-        UpgradesActivity.tapRate = tapRateSavedInt;
+        tapRate = tapRateSavedInt;
         SharedPreferences quantitySaved = getSharedPreferences("quantity", Context.MODE_PRIVATE);
         final long quantitySavedLong = quantitySaved.getLong("quantity", 0);
         quantity = quantitySavedLong;
         TextView num = (TextView) findViewById(R.id.num);
         festDiamondText = (TextView) findViewById(R.id.festDiamondText);
+        tapsTillShowPB = (ProgressBar) findViewById(R.id.tillShowPB);
+        TAG = MainActivity.this + "";
         displayFestDiamonds();
         displayQuantity();
+
 
     }
 
@@ -85,7 +97,7 @@ public class MainActivity extends Activity {
     public void increment(View view) {
         numOfClicks += 1;
         numOfClicksSaved += 1;
-        quantity = quantity + UpgradesActivity.tapRate;
+        quantity = quantity + tapRate;
         if (quantity == 50) {
             Snackbar.make(view, "Go to Upgrades to earn more FestCoins for every tap", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
@@ -133,60 +145,83 @@ public class MainActivity extends Activity {
     }
 
     public static void displayQuantity() {
-        if (quantity != 0) {
-            // more than a million, less than ten million
-            if (quantity > 1000000 && quantity < 10000000){
-                quantityString = "" + quantity;
-                quantityString =  quantityString.charAt(0) + "." + quantityString.charAt(1) + quantityString.charAt(2) + "M";
-            }
-            // more than ten million, less than one hundred million
-            else if (quantity > 10000000 && quantity < 100000000){
-                quantityString = "" + quantity;
-                quantityString = quantityString.charAt(0) + "" + quantityString.charAt(1) + "." + quantityString.charAt(2) + quantityString.charAt(3) + "M";
-            }
-            // more than one hundred million, less than a billion
-            else if (quantity > 100000000 && quantity < 1000000000){
-                quantityString = "" + quantity;
-                quantityString =  quantityString.charAt(0) + "" + quantityString.charAt(1) + "" + quantityString.charAt(2) + "." + quantityString.charAt(3) + quantityString.charAt(4) + "M";
-            }
-            // more than a billion, less than ten billion
-            else if (quantity > 1000000000 && quantity < 10000000000L){
-                quantityString = "" + quantity;
-                quantityString =  quantityString.charAt(0) + "." + quantityString.charAt(1) + quantityString.charAt(2) + quantityString.charAt(3) + "B";
-            }
-            // more than ten billion, less than one hundred billion
-            else if (quantity > 10000000000L && quantity < 100000000000L){
-                quantityString = "" + quantity;
-                quantityString =  quantityString.charAt(0) + "" + quantityString.charAt(1) + "." + quantityString.charAt(2) + "" + quantityString.charAt(3) + "" + quantityString.charAt(4) + "" + quantityString.charAt(5) + "" + "B";
-            }
-            // more than one hundred billion, less than one trillion
-            else if (quantity > 100000000000L && quantity < 1000000000000L){
-                quantityString = "" + quantity;
-                quantityString =  quantityString.charAt(0) + "" + quantityString.charAt(1) + "" + quantityString.charAt(3) + "." + quantityString.charAt(4) + quantityString.charAt(5) + quantityString.charAt(6) + "B";
-            }
-            // more than one trillion, less than ten trillion
-            else if (quantity > 1000000000000L && quantity < 10000000000000L){
-                quantityString = "" + quantity;
-                quantityString =  quantityString.charAt(0) + "." + quantityString.charAt(1) + quantityString.charAt(2) + quantityString.charAt(3) + "B";
-            }
-            // more than ten trillion, less than one hundred trillion
-            else if (quantity > 10000000000000L && quantity < 100000000000000L){
-                quantityString = "" + quantity;
-                quantityString =  quantityString.charAt(0) + "" + quantityString.charAt(1) + "." + quantityString.charAt(2) + quantityString.charAt(3) + quantityString.charAt(4) + "B";
-            }
-            // more than one hundred trillion, less than one quadrillion
-            else if (quantity > 100000000000000L && quantity < 1000000000000000L){
-                quantityString = "" + quantity;
-                quantityString =  quantityString.charAt(0) + "" + quantityString.charAt(1) + "" + quantityString.charAt(2) + "." + quantityString.charAt(3) + quantityString.charAt(4) + quantityString.charAt(5) + "B";
-            }
-            // less than a million. No decimals.
-            else if (quantity < 1000000) {
-                quantityString = "" + quantity;
-            }
-            num.setText("$" + quantityString);
-        }if (quantity == 0) {
-            num.setText(quantity + " FestCoins");
+
+        // more than a million, less than ten million
+        if (quantity > 1000000 && quantity < 10000000){
+            quantityString = "" + quantity;
+            quantityString =  quantityString.charAt(0) + "." + quantityString.charAt(1) + quantityString.charAt(2);
+            letter = "M";
         }
+        // more than ten million, less than one hundred million
+        else if (quantity > 10000000 && quantity < 100000000){
+            quantityString = "" + quantity;
+            quantityString = quantityString.charAt(0) + "" + quantityString.charAt(1) + "." + quantityString.charAt(2) + quantityString.charAt(3);
+            letter = "M";
+        }
+        // more than one hundred million, less than a billion
+        else if (quantity > 100000000 && quantity < 1000000000){
+            quantityString = "" + quantity;
+            quantityString =  quantityString.charAt(0) + "" + quantityString.charAt(1) + "" + quantityString.charAt(2) + "." + quantityString.charAt(3) + quantityString.charAt(4);
+            letter = "M";
+        }
+        // more than a billion, less than ten billion
+        else if (quantity > 1000000000 && quantity < 10000000000L){
+            quantityString = "" + quantity;
+            quantityString =  quantityString.charAt(0) + "." + quantityString.charAt(1) + quantityString.charAt(2);
+            letter = "B";
+        }
+        // more than ten billion, less than one hundred billion
+        else if (quantity > 10000000000L && quantity < 100000000000L){
+            quantityString = "" + quantity;
+            quantityString =  quantityString.charAt(0) + "" + quantityString.charAt(1) + "." + quantityString.charAt(2) + "" + quantityString.charAt(3);
+            letter = "B";
+        }
+        // more than one hundred billion, less than one trillion
+        else if (quantity > 100000000000L && quantity < 1000000000000L){
+            quantityString = "" + quantity;
+            quantityString =  quantityString.charAt(0) + "" + quantityString.charAt(1) + "" + quantityString.charAt(3) + "." + quantityString.charAt(4) + quantityString.charAt(5);
+            letter = "B";
+        }
+        // more than one trillion, less than ten trillion
+        else if (quantity > 1000000000000L && quantity < 10000000000000L){
+            quantityString = "" + quantity;
+            quantityString =  quantityString.charAt(0) + "." + quantityString.charAt(1) + quantityString.charAt(2);
+            letter = "B";
+        }
+        // more than ten trillion, less than one hundred trillion
+        else if (quantity > 10000000000000L && quantity < 100000000000000L){
+            quantityString = "" + quantity;
+            quantityString =  quantityString.charAt(0) + "" + quantityString.charAt(1) + "." + quantityString.charAt(2) + quantityString.charAt(3);
+            letter = "B";
+        }
+        // more than one hundred trillion, less than one quadrillion
+        else if (quantity > 100000000000000L && quantity < 1000000000000000L){
+            quantityString = "" + quantity;
+            quantityString =  quantityString.charAt(0) + "" + quantityString.charAt(1) + "" + quantityString.charAt(2) + "." + quantityString.charAt(3) + quantityString.charAt(4);
+            letter = "B";
+        }
+        // less than a million. No decimals.
+        else if (quantity < 1000000) {
+            quantityString = "" + quantity;
+            letter = "";
+            isReturning = true;
+        }
+        num.setText("$" + quantityString + letter);
+        if (isReturning) {
+            return;
+        }
+        if (tapsTillShow == 100) {
+            tapsTillShow = 0;
+        }
+        //Log.i("MainActivity", quantityString.replace(".", quantity + tapRate + "".length() + ""));
+        String tapRateString = tapRate + "";
+        String quantityPlusTapRate = quantity + tapRate + "";
+        if (Long.parseLong(quantityPlusTapRate.substring(0, 3)) == Long.parseLong(quantityString.replace(".", ""))) {
+            tapsTillShow +=  Double.parseDouble(quantityPlusTapRate.substring(0,3)) / Double.parseDouble(quantityString.replace(".", "")) / 100;
+            Log.i(TAG, "" + Double.parseDouble(quantityPlusTapRate.substring(0,3)) / Double.parseDouble(quantityString.replace(".", "")) / 100);
+            tapsTillShowPB.setProgress((int) tapsTillShow);
+        }
+
     }
 
     public static void displayFestDiamonds() {

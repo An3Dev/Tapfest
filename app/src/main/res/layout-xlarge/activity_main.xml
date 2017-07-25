@@ -16,27 +16,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/no_festcoins"
-        android:textSize="50sp"
+        android:textSize="125sp"
         android:textColor="#000"
         android:gravity="center_horizontal"
         android:id="@+id/num"
-        android:layout_below="@+id/adView"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="129dp" />
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="increment"
         android:text="@string/btn_message_tap_here"
+        android:textSize="50sp"
         android:textAllCaps="false"
         android:background="@color/colorPrimary"
         android:textColor="#FFF"
-        android:minHeight="80dp"
+        android:minHeight="200dp"
+        android:layout_marginBottom="51dp"
+        android:id="@+id/money_btn"
         android:layout_above="@+id/upgrades_btn"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="20dp"
-        android:id="@+id/money_btn"/>
+        android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/upgrades_btn"
@@ -49,7 +49,9 @@
         android:textColor="#FFF"
         android:onClick="upgradesScreen"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:minHeight="90dp"
+        android:minWidth="110dp" />
 
     <Button
         android:id="@+id/settings_btn"
@@ -63,7 +65,8 @@
         android:onClick="goToSettings"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:minHeight="50dp"/>
+        android:minHeight="90dp"
+        android:minWidth="110dp"/>
 
     <com.google.android.gms.ads.AdView
         xmlns:ads="http://schemas.android.com/apk/res-auto"
@@ -82,19 +85,11 @@
         android:text="@string/no_fest_diamonds"
         android:layout_below="@+id/adView"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="40dp"
         android:textColor="#000"
         android:id="@+id/festDiamondText"
-        android:textStyle="bold"/>
-
-    <ProgressBar
-        android:id="@+id/tillShowPB"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/num"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="90dp" />
+        android:textStyle="bold"
+        android:textSize="50sp" />
 
     <!--<TextView-->
         <!--android:layout_width="wrap_content"-->
