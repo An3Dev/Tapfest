@@ -142,8 +142,12 @@ public class UpgradesActivity extends Activity {
             public boolean onLongClick(View v) {
 
                 long timesCanBeBought = quantity/tapRate;
-                quantity -= timesCanBeBought*tapRate;
-                tapRate += timesCanBeBought;
+                for(int i = 0; i < timesCanBeBought; i++) {
+//                    festCoins -= tapRate;
+//                    tapRate += 1;
+                    incrementTapState(upgradeButton);
+                }
+
                 Snackbar.make(v, "You speed upgraded!", Snackbar.LENGTH_SHORT).show();
                 upgradeButton.setText(tapRate + " FestCoins per tap");
                 displayQuantity();
