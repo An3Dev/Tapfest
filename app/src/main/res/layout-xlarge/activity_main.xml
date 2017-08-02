@@ -20,8 +20,9 @@
         android:textColor="#000"
         android:gravity="center_horizontal"
         android:id="@+id/num"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true" />
+        android:layout_above="@+id/money_btn"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="231dp" />
 
     <Button
         android:layout_width="match_parent"

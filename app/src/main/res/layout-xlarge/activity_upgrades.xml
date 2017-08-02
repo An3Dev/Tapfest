@@ -65,7 +65,7 @@
                 android:gravity="center"
                 android:minHeight="140dp"
                 android:textSize="25sp"
-                android:onClick="doubleTapRateAmount"
+                android:onClick="increaseTapRateAmount"
                 android:text="@string/double_tap_rate_amount"
                 android:textAllCaps="false"
                 android:textColor="#FFF" />
@@ -169,7 +169,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="80 FestDiamonds"
+                android:text="@string/eightyFestDiamonds"
                 android:id="@+id/buy_festdiamonds_80"
                 android:onClick="buyFestDiamondseighty"
                 android:background="@color/colorPrimary"
@@ -186,7 +186,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="500 FestDiamonds"
+                android:text="@string/fiveHundredFestDiamonds"
                 android:id="@+id/buy_festdiamonds_500"
                 android:onClick="buyFestDiamonds5hundred"
                 android:background="@color/colorPrimary"
@@ -201,7 +201,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="1,000 FestDiamonds"
+                android:text="@string/oneThousandFestDiamonds"
                 android:id="@+id/buy_festdiamonds_1000"
                 android:onClick="buyFestDiamondsThousand"
                 android:background="@color/colorPrimary"
@@ -216,7 +216,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="1,000,000 FestDiamonds"
+                android:text="@string/oneMillionFestDiamonds"
                 android:id="@+id/buy_festdiamonds_1000000"
                 android:onClick="buyFestDiamondsMillion"
                 android:background="@color/colorPrimary"
@@ -232,7 +232,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Extras"
+                android:text="@string/extras"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center_horizontal"
                 android:textSize="35sp"
@@ -251,7 +251,7 @@
                 android:minHeight="140dp"
                 android:textSize="25sp"
                 android:onClick="showRewardAd"
-                android:text="Watch video to earn 50k Festcoins"
+                android:text="@string/watchVideoToEarn"
                 android:textAllCaps="false"
                 android:textColor="#FFF" />
 
