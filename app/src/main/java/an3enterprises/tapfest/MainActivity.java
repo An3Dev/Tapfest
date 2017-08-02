@@ -335,7 +335,7 @@ public class MainActivity extends Activity {
     }
 
     public static void displayFestDiamonds() {
-        festDiamondText.setText(festDiamonds + R.string.festDiamondsSpace);
+        festDiamondText.setText(festDiamonds + letterGet.getString(R.string.festDiamondsSpace));
     }
 
 

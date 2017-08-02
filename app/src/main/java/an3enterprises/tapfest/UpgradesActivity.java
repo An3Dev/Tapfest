@@ -70,7 +70,7 @@ public class UpgradesActivity extends Activity {
         final int tapRateSavedInt = tapRateSaved.getInt("tapRate", 1);
         tapRate = tapRateSavedInt;
         upgradeButton = (Button) findViewById((R.id.upgrade_button));
-        upgradeButton.setText(tapRate + R.string.festCoinsPerTap);
+        upgradeButton.setText(tapRate + getResources().getString(R.string.festCoinsPerTap));
 
         mAd = MobileAds.getRewardedVideoAdInstance(this);
         mAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
@@ -215,7 +215,7 @@ public class UpgradesActivity extends Activity {
             quantity = quantity - tapRate;
             tapRate = tapRate + 1;
             upgradeButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-            upgradeButton.setText(tapRate + R.string.festCoinsPerTap);
+            upgradeButton.setText(tapRate + getResources().getString(R.string.festCoinsPerTap));
             if (quantity < tapRate + 1) {
                 upgradeButton.setBackgroundColor(getResources().getColor(R.color.lightGray));
                 Snackbar.make(view, R.string.dontHaveEnoughFestCoins, Snackbar.LENGTH_SHORT).show();
@@ -611,7 +611,7 @@ public class UpgradesActivity extends Activity {
                     SharedPreferences.Editor festDiamondsEditor = festDiamondsSP.edit();
                     festDiamondsEditor.putInt("festDiamonds", festDiamonds);
                     festDiamondsEditor.commit();
-                    upgradeButton.setText(tapRate + R.string.festCoinsPerTap);
+                    upgradeButton.setText(tapRate + getResources().getString(R.string.festCoinsPerTap));
                     displayFestDiamonds();
                     displayQuantity();
                 }
