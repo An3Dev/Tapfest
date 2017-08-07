@@ -150,7 +150,6 @@
     <string name="donation199">$1.99</string>
     <string name="donation499">$4.99</string>
     <string name="donation999">$9.99</string>
-
     <string name="upgrades_title">"Upgrades"</string>
     <string name="btn_message_tap_here">"Tap here!"</string>
     <string name="no_festcoins">"0 FestCoins"</string>
@@ -208,5 +207,6 @@
     <string name="oneThousandFestDiamonds">1,000 FestDiamonds</string>
     <string name="fiveHundredFestDiamonds">5,000 FestDiamonds</string>
     <string name="eightyFestDiamonds">80 FestDiamonds</string>
+    <string name="you_should_install_tapfest">"Hey you should play Tapfest by An3Enterprises. Its really fun!"</string>
 
 </resources>

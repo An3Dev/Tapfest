@@ -9,8 +9,8 @@ android {
         applicationId "an3enterprises.tapfest"
         minSdkVersion 21
         targetSdkVersion 25
-        versionCode 8
-        versionName "8.0"
+        versionCode 9
+        versionName "9.0"
         multiDexEnabled true
     }
     buildTypes {
@@ -38,5 +38,6 @@ dependencies {
     compile 'com.google.android.gms:play-services-gcm:11.0.2'
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:design:25.2.0'
+    compile 'com.android.support:design:26.0.0-alpha1'
 }
 apply plugin: 'com.google.gms.google-services'

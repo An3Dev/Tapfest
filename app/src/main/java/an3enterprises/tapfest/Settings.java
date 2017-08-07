@@ -259,12 +259,12 @@ public class Settings extends Activity {
 
     private void onInviteClicked() {
         String url = "https://play.google.com/store/apps/details?id=an3enterprises.guessthenumber";
-        String shareBody = "Hey you should play Tapfest by An3Enterprises. Its really fun!";
+        String shareBody = getResources().getString(R.string.you_should_install_tapfest);
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
         sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, R.string.app_name);
         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody + " " + url);
-        startActivity(Intent.createChooser(sharingIntent, "Share Tapfest using..."));
+        startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.share_using)));
     }
 
 

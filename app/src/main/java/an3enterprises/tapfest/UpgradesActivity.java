@@ -140,8 +140,8 @@ public class UpgradesActivity extends Activity {
                 long timesCanBeBought = quantity/tapRate;
                 quantity -= timesCanBeBought*tapRate;
                 tapRate += timesCanBeBought;
-                Snackbar.make(v, R.string.youSpeedUpgraded, Snackbar.LENGTH_SHORT).show();
-                upgradeButton.setText(tapRate + R.string.festCoinsPerTap);
+                Snackbar.make(v, getResources().getString(R.string. youSpeedUpgraded), Snackbar.LENGTH_SHORT).show();
+                upgradeButton.setText(tapRate + getResources().getString(R.string. festCoinsPerTap));
                 displayQuantity();
                 upgradeButton.setBackgroundColor(getResources().getColor(R.color.lightGray));
                 MainActivity.displayQuantity();
@@ -180,7 +180,7 @@ public class UpgradesActivity extends Activity {
                                               IabResult result) {
 
                     if (result.isSuccess()) {
-                        Snackbar.make(findViewById(R.id.linear_layout_upgrades), R.string.noMoreAds, Snackbar.LENGTH_LONG).show();
+                        Snackbar.make(findViewById(R.id.linear_layout_upgrades), getResources().getString(R.string. noMoreAds), Snackbar.LENGTH_LONG).show();
 
                     } else {
                         // handle error
@@ -196,7 +196,7 @@ public class UpgradesActivity extends Activity {
         if (quantity < tapRate + 1) {
             upgradeButton.setBackgroundColor(getResources().getColor(R.color.lightGray));
             upgradeButton.setEnabled(false);
-            Snackbar.make(view, R.string.dontHaveEnoughFestCoins, Snackbar.LENGTH_LONG).show();
+            Snackbar.make(view, getResources().getString(R.string. dontHaveEnoughFestCoins), Snackbar.LENGTH_LONG).show();
 //            final TextView mSwitcher = (TextView) findViewById(R.id.disappearing_textview);
 //            mSwitcher.setText("");
 //            mSwitcher.setVisibility(View.VISIBLE);
@@ -218,7 +218,7 @@ public class UpgradesActivity extends Activity {
             upgradeButton.setText(tapRate + getResources().getString(R.string.festCoinsPerTap));
             if (quantity < tapRate + 1) {
                 upgradeButton.setBackgroundColor(getResources().getColor(R.color.lightGray));
-                Snackbar.make(view, R.string.dontHaveEnoughFestCoins, Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(view, getResources().getString(R.string. dontHaveEnoughFestCoins), Snackbar.LENGTH_SHORT).show();
             }
             displayQuantity();
 
@@ -240,24 +240,24 @@ public class UpgradesActivity extends Activity {
         builder.setTitle(getResources().getString(R.string.buyFiftyThousandFestCoins));
         if (festDiamonds >= 80) {
             builder.setMessage(getResources().getString(R.string.costEightyFestDiamonds));
-            builder.setPositiveButton(R.string.buy, new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(getResources().getString(R.string. buy), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     festDiamonds -= 80;
                     quantity += 50000;
-                    Snackbar.make(view, R.string.justBoughtFiftyThousand, Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(view, getResources().getString(R.string. justBoughtFiftyThousand), Snackbar.LENGTH_LONG).show();
                 }
             });
         }if (festDiamonds < 80) {
             diamondsNeeded = 80 - festDiamonds;
-            builder.setMessage(R.string.sorryYouNeed + diamondsNeeded + R.string.moreFestDiamonds);
-            builder.setPositiveButton(R.string.buyFestDiamonds, new DialogInterface.OnClickListener() {
+            builder.setMessage(getResources().getString(R.string. sorryYouNeed) + diamondsNeeded + getResources().getString(R.string. moreFestDiamonds));
+            builder.setPositiveButton(getResources().getString(R.string. buyFestDiamonds), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     determinePurchaseAmount(diamondsNeeded);
                 }
             });
-            builder.setNegativeButton(R.string.OK, new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(getResources().getString(R.string. OK), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
@@ -271,28 +271,28 @@ public class UpgradesActivity extends Activity {
     public void buyFestCoins200(final View view) {
         AlertDialog.Builder builder;
         builder = new AlertDialog.Builder(UpgradesActivity.this);
-        builder.setTitle(R.string.buyTwoHundredThousandFestCoins);
+        builder.setTitle(getResources().getString(R.string. buyTwoHundredThousandFestCoins));
         if (festDiamonds >= 200) {
-            builder.setMessage(R.string.costTwoHundredDiamonds);
+            builder.setMessage(getResources().getString(R.string. costTwoHundredDiamonds));
             builder.setPositiveButton(R.string.buy, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     festDiamonds -= 200;
                     quantity += 200000;
-                    Snackbar.make(view, R.string.justBoughtTwoHundredThousand, Snackbar.LENGTH_LONG)
+                    Snackbar.make(view, getResources().getString(R.string. justBoughtTwoHundredThousand), Snackbar.LENGTH_LONG)
                             .show();
                 }
             });
         }if (festDiamonds < 200) {
             diamondsNeeded = 200 - festDiamonds;
-            builder.setMessage(R.string.sorryYouNeed + diamondsNeeded + R.string.moreFestDiamonds);
-            builder.setPositiveButton(R.string.buyFestDiamonds, new DialogInterface.OnClickListener() {
+            builder.setMessage(getResources().getString(R.string. sorryYouNeed) + diamondsNeeded + getResources().getString(R.string. moreFestDiamonds));
+            builder.setPositiveButton(getResources().getString(R.string. buyFestDiamonds), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     determinePurchaseAmount(diamondsNeeded);
                 }
             });
-            builder.setNegativeButton(R.string.OK, new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(getResources().getString(R.string. OK), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
@@ -306,27 +306,27 @@ public class UpgradesActivity extends Activity {
     public void buyFestCoins500(final View view) {
         AlertDialog.Builder builder;
         builder = new AlertDialog.Builder(UpgradesActivity.this);
-        builder.setTitle(R.string.five_hundred_thousand_festcoins);
+        builder.setTitle(getResources().getString(R.string. five_hundred_thousand_festcoins));
         if (festDiamonds >= 500) {
-            builder.setMessage(R.string.costFiveHundredDiamonds);
-            builder.setPositiveButton(R.string.buy, new DialogInterface.OnClickListener() {
+            builder.setMessage(getResources().getString(R.string. costFiveHundredDiamonds));
+            builder.setPositiveButton(getResources().getString(R.string. buy), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     festDiamonds -= 500;
                     quantity += 500000;
-                    Snackbar.make(view, R.string.justBoughtFiveHundredThousand, Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(view, getResources().getString(R.string. justBoughtFiveHundredThousand), Snackbar.LENGTH_LONG).show();
                 }
             });
         }if (festDiamonds < 500) {
             diamondsNeeded = 500 - festDiamonds;
-            builder.setMessage(R.string.sorryYouNeed + diamondsNeeded + R.string.moreFestDiamonds);
-            builder.setPositiveButton(R.string.buyFestDiamonds, new DialogInterface.OnClickListener() {
+            builder.setMessage(getResources().getString(R.string. sorryYouNeed) + diamondsNeeded + getResources().getString(R.string. moreFestDiamonds));
+            builder.setPositiveButton(getResources().getString(R.string. buyFestDiamonds), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     determinePurchaseAmount(diamondsNeeded);
                 }
             });
-            builder.setNegativeButton(R.string.OK, new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(getResources().getString(R.string. OK), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
@@ -340,27 +340,27 @@ public class UpgradesActivity extends Activity {
     public void buyFestCoins1000(final View view) {
         AlertDialog.Builder builder;
         builder = new AlertDialog.Builder(UpgradesActivity.this);
-        builder.setTitle(R.string.buyOneMillionFestCoins);
+        builder.setTitle(getResources().getString(R.string.buyOneMillionFestCoins));
         if (festDiamonds >= 1000) {
-            builder.setMessage(R.string.costOneThousandFestDiamonds);
-            builder.setPositiveButton(R.string.buy, new DialogInterface.OnClickListener() {
+            builder.setMessage(getResources().getString(R.string. costOneThousandFestDiamonds));
+            builder.setPositiveButton(getResources().getString(R.string.buy), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     festDiamonds -= 1000;
                     quantity += 1000000;
-                    Snackbar.make(view, R.string.justBoughtOneMillion, Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(view, getResources().getString(R.string.justBoughtOneMillion), Snackbar.LENGTH_LONG).show();
                 }
             });
         }if (festDiamonds < 1000) {
             diamondsNeeded = 1000 - festDiamonds;
-            builder.setMessage(R.string.sorryYouNeed + diamondsNeeded + R.string.moreFestDiamonds);
-            builder.setPositiveButton(R.string.buyFestDiamonds, new DialogInterface.OnClickListener() {
+            builder.setMessage(getResources().getString(R.string.sorryYouNeed) + diamondsNeeded + getResources().getString(R.string. moreFestDiamonds));
+            builder.setPositiveButton(getResources().getString(R.string. buyFestDiamonds), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     determinePurchaseAmount(diamondsNeeded);
                 }
             });
-            builder.setNegativeButton(R.string.OK, new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(getResources().getString(R.string. OK), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
@@ -374,27 +374,27 @@ public class UpgradesActivity extends Activity {
     public void buyFestCoins1000000(final View view) {
         AlertDialog.Builder builder;
         builder = new AlertDialog.Builder(UpgradesActivity.this);
-        builder.setTitle(R.string.buyOneBillionFestCoins);
+        builder.setTitle(getResources().getString(R.string. buyOneBillionFestCoins));
         if (festDiamonds >= 1000000) {
-            builder.setMessage(R.string.costOneMillionDiamonds);
-            builder.setPositiveButton(R.string.buy, new DialogInterface.OnClickListener() {
+            builder.setMessage(getResources().getString(R.string. costOneMillionDiamonds));
+            builder.setPositiveButton(getResources().getString(R.string. buy), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     festDiamonds -= 1000000;
                     quantity += 1000000000;
-                    Snackbar.make(view, R.string.justBoughtOneBillion, Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(view, getResources().getString(R.string. justBoughtOneBillion), Snackbar.LENGTH_LONG).show();
                 }
             });
         }if (festDiamonds < 1000000) {
             diamondsNeeded = 1000000 - festDiamonds;
-            builder.setMessage(R.string.sorryYouNeed + diamondsNeeded + R.string.moreFestDiamonds);
-            builder.setPositiveButton(R.string.buyFestDiamonds, new DialogInterface.OnClickListener() {
+            builder.setMessage(getResources().getString(R.string. sorryYouNeed) + diamondsNeeded + getResources().getString(R.string. moreFestDiamonds));
+            builder.setPositiveButton(getResources().getString(R.string. buyFestDiamonds), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     determinePurchaseAmount(diamondsNeeded);
                 }
             });
-            builder.setNegativeButton(R.string.OK, new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(getResources().getString(R.string. OK), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
@@ -590,15 +590,15 @@ public class UpgradesActivity extends Activity {
     public void increaseTapRateAmount(final View view) {
         AlertDialog.Builder builder;
         builder = new AlertDialog.Builder(UpgradesActivity.this);
-        builder.setTitle(R.string.increaseTapRateAmount);
-        builder.setMessage(R.string.costFiftyDiamonds);
+        builder.setTitle(getResources().getString(R.string. increaseTapRateAmount));
+        builder.setMessage(getResources().getString(R.string. costFiftyDiamonds));
         if (festDiamonds >= 50) {
-            builder.setPositiveButton(R.string.increaseAmount, new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(getResources().getString(R.string. increaseAmount), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     festDiamonds -= 50;
                     tapRate += 50000;
-                    Snackbar.make(view, R.string.tapRateWasIncreased, Snackbar.LENGTH_LONG);
+                    Snackbar.make(view, getResources().getString(R.string. tapRateWasIncreased), Snackbar.LENGTH_LONG);
                     SharedPreferences tapRateSaved = getSharedPreferences("tapRate", Context.MODE_PRIVATE);
                     SharedPreferences.Editor tapRateSavedEditor = tapRateSaved.edit();
                     tapRateSavedEditor.putInt("tapRate", tapRate);
@@ -616,21 +616,21 @@ public class UpgradesActivity extends Activity {
                     displayQuantity();
                 }
             });
-            builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(getResources().getString(R.string. cancel), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
                 }
             });
         }if (festDiamonds < 50) {
-            builder.setPositiveButton(R.string.buyFestDiamonds, new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(getResources().getString(R.string. buyFestDiamonds), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     int amountNeeded = 50 - festDiamonds;
                     determinePurchaseAmount(amountNeeded);
                 }
             });
-            builder.setNegativeButton(R.string.OK, new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(getResources().getString(R.string. OK), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
