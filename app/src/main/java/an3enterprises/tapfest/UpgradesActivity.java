@@ -25,15 +25,13 @@ import an3enterprises.tapfest.util.IabResult;
 import an3enterprises.tapfest.util.Inventory;
 import an3enterprises.tapfest.util.Purchase;
 
-import static an3enterprises.tapfest.MainActivity.displayFestDiamonds;
-import static an3enterprises.tapfest.MainActivity.displayQuantity;
 import static an3enterprises.tapfest.MainActivity.festDiamonds;
 import static an3enterprises.tapfest.MainActivity.quantity;
 
 public class UpgradesActivity extends Activity {
 
     SharedPreferences tapRateSaved;
-    public static Button upgradeButton;
+    public Button upgradeButton;
     static int tapRate = 1;
     private RewardedVideoAd mAd;
     IabHelper mHelper;
@@ -142,9 +140,6 @@ public class UpgradesActivity extends Activity {
                 tapRate += timesCanBeBought;
                 Snackbar.make(v, getResources().getString(R.string. youSpeedUpgraded), Snackbar.LENGTH_SHORT).show();
                 upgradeButton.setText(tapRate + getResources().getString(R.string. festCoinsPerTap));
-                displayQuantity();
-                upgradeButton.setBackgroundColor(getResources().getColor(R.color.lightGray));
-                MainActivity.displayQuantity();
                 upgradeButton.setBackgroundColor(getResources().getColor(R.color.lightGray));
 
                 return true;
@@ -220,7 +215,6 @@ public class UpgradesActivity extends Activity {
                 upgradeButton.setBackgroundColor(getResources().getColor(R.color.lightGray));
                 Snackbar.make(view, getResources().getString(R.string. dontHaveEnoughFestCoins), Snackbar.LENGTH_SHORT).show();
             }
-            displayQuantity();
 
         }
 
@@ -264,8 +258,6 @@ public class UpgradesActivity extends Activity {
                 }
             });
         }builder.show();
-        displayFestDiamonds();
-        displayQuantity();
     }
 
     public void buyFestCoins200(final View view) {
@@ -299,8 +291,6 @@ public class UpgradesActivity extends Activity {
                 }
             });
         }builder.show();
-        displayFestDiamonds();
-        displayQuantity();
     }
 
     public void buyFestCoins500(final View view) {
@@ -333,8 +323,6 @@ public class UpgradesActivity extends Activity {
                 }
             });
         }builder.show();
-        displayFestDiamonds();
-        displayQuantity();
     }
 
     public void buyFestCoins1000(final View view) {
@@ -367,8 +355,6 @@ public class UpgradesActivity extends Activity {
                 }
             });
         }builder.show();
-        displayFestDiamonds();
-        displayQuantity();
     }
 
     public void buyFestCoins1000000(final View view) {
@@ -401,8 +387,7 @@ public class UpgradesActivity extends Activity {
                 }
             });
         }builder.show();
-        displayFestDiamonds();
-        displayQuantity();
+
     }
 
     public void buyFestDiamondseighty(View view) throws IabHelper.IabAsyncInProgressException {
@@ -443,8 +428,6 @@ public class UpgradesActivity extends Activity {
         SharedPreferences.Editor festDiamondsEditor = festDiamondsSP.edit();
         festDiamondsEditor.putInt("festDiamonds", festDiamonds);
         festDiamondsEditor.commit();
-        displayFestDiamonds();
-        displayQuantity();
         super.onPause();
     }
 
@@ -462,8 +445,6 @@ public class UpgradesActivity extends Activity {
         SharedPreferences.Editor festDiamondsEditor = festDiamondsSP.edit();
         festDiamondsEditor.putInt("festDiamonds", festDiamonds);
         festDiamondsEditor.commit();
-        displayFestDiamonds();
-        displayQuantity();
         super.onRestart();
     }
 
@@ -479,10 +460,8 @@ public class UpgradesActivity extends Activity {
         quantitySavedEditor.commit();
         SharedPreferences festDiamondsSP = getSharedPreferences("festDiamonds", Context.MODE_PRIVATE);
         SharedPreferences.Editor festDiamondsEditor = festDiamondsSP.edit();
-        festDiamondsEditor.putLong("festDiamonds", festDiamonds);
+        festDiamondsEditor.putInt("festDiamonds", festDiamonds);
         festDiamondsEditor.commit();
-        displayFestDiamonds();
-        displayQuantity();
         super.onBackPressed();
     }
 
@@ -500,8 +479,6 @@ public class UpgradesActivity extends Activity {
         SharedPreferences.Editor festDiamondsEditor = festDiamondsSP.edit();
         festDiamondsEditor.putInt("festDiamonds", festDiamonds);
         festDiamondsEditor.commit();
-        displayFestDiamonds();
-        displayQuantity();
         if (mHelper != null) try {
             mHelper.dispose();
         } catch (IabHelper.IabAsyncInProgressException e) {
@@ -612,8 +589,6 @@ public class UpgradesActivity extends Activity {
                     festDiamondsEditor.putInt("festDiamonds", festDiamonds);
                     festDiamondsEditor.commit();
                     upgradeButton.setText(tapRate + getResources().getString(R.string.festCoinsPerTap));
-                    displayFestDiamonds();
-                    displayQuantity();
                 }
             });
             builder.setNegativeButton(getResources().getString(R.string. cancel), new DialogInterface.OnClickListener() {

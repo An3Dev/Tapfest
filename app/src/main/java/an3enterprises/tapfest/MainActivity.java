@@ -18,8 +18,6 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Random;
 
 import static an3enterprises.tapfest.UpgradesActivity.tapRate;
@@ -29,11 +27,11 @@ public class MainActivity extends Activity {
     static long quantity = 0;
     static int numOfClicks;
     static int numOfClicksSaved;
-    public static TextView num;
+    public TextView num;
     private AdView mAdView;
     static int randNumForBonus;
     static int festDiamonds;
-    static TextView festDiamondText;
+    TextView festDiamondText;
     Random rand = new Random();
     static String quantityString;
     static int maxBonus;
@@ -81,7 +79,6 @@ public class MainActivity extends Activity {
         SharedPreferences quantitySaved = getSharedPreferences("quantity", Context.MODE_PRIVATE);
         final long quantitySavedLong = quantitySaved.getLong("quantity", 0);
         quantity = quantitySavedLong;
-        TextView num = (TextView) findViewById(R.id.num);
         festDiamondText = (TextView) findViewById(R.id.festDiamondText);
         //tapsTillShowPB = (ProgressBar) findViewById(R.id.tillShowPB);
         TAG = MainActivity.this + "";
@@ -167,7 +164,7 @@ public class MainActivity extends Activity {
 //        }
     }
 
-    public static void displayQuantity() {
+    public void displayQuantity() {
         //quantity = 70000000;
         // more than a million, less than ten million
         if (quantity > 1000000 && quantity < 10000000){
@@ -326,6 +323,7 @@ public class MainActivity extends Activity {
             letter = "";
             isReturning = true;
         }
+        num = (TextView) findViewById(R.id.num);
         num.setText("$" + quantityString + letter);
         if (isReturning) {
             return;
@@ -334,7 +332,7 @@ public class MainActivity extends Activity {
         //Log.i("MainActivity", quantityString.replace(".", quantity + tapRate + "".length() + ""));
     }
 
-    public static void displayFestDiamonds() {
+    public void displayFestDiamonds() {
         festDiamondText.setText(festDiamonds + letterGet.getString(R.string.festDiamondsSpace));
     }
 
@@ -437,6 +435,8 @@ public class MainActivity extends Activity {
         SharedPreferences.Editor festDiamondsEditor = festDiamondsSP.edit();
         festDiamondsEditor.putInt("festDiamonds", festDiamonds);
         festDiamondsEditor.commit();
+        displayFestDiamonds();
+        displayQuantity();
         super.onDestroy();
     }
     @Override
@@ -449,6 +449,8 @@ public class MainActivity extends Activity {
         SharedPreferences.Editor festDiamondsEditor = festDiamondsSP.edit();
         festDiamondsEditor.putInt("festDiamonds", festDiamonds);
         festDiamondsEditor.commit();
+        displayFestDiamonds();
+        displayQuantity();
         super.onStop();
     }
 
@@ -472,6 +474,8 @@ public class MainActivity extends Activity {
         SharedPreferences.Editor festDiamondsEditor = festDiamondsSP.edit();
         festDiamondsEditor.putInt("festDiamonds", festDiamonds);
         festDiamondsEditor.commit();
+        displayFestDiamonds();
+        displayQuantity();
         super.onPause();
     }
 
@@ -484,6 +488,8 @@ public class MainActivity extends Activity {
         SharedPreferences.Editor festDiamondsEditor = festDiamondsSP.edit();
         festDiamondsEditor.putInt("festDiamonds", festDiamonds);
         festDiamondsEditor.commit();
+        displayFestDiamonds();
+        displayQuantity();
         super.onRestart();
     }
 
@@ -497,6 +503,8 @@ public class MainActivity extends Activity {
         SharedPreferences.Editor festDiamondsEditor = festDiamondsSP.edit();
         festDiamondsEditor.putInt("festDiamonds", festDiamonds);
         festDiamondsEditor.commit();
+        displayFestDiamonds();
+        displayQuantity();
         Intent intent = new Intent(MainActivity.this, Settings.class);
         startActivity(intent);
 //        AlertDialog.Builder builder;
@@ -517,14 +525,6 @@ public class MainActivity extends Activity {
 //            }
 //        });
 //        builder.show();
-    }
-
-    public static double round(double value, int places) {
-        if (places < 0) throw new IllegalArgumentException();
-
-        BigDecimal bd = new BigDecimal(value);
-        bd = bd.setScale(places, RoundingMode.HALF_UP);
-        return bd.doubleValue();
     }
 
 
