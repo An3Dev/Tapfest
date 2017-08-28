@@ -46,6 +46,7 @@ public class MainActivity extends Activity {
     static double addedTapsDecimals;
     static double addedTaps;
     static Resources letterGet;
+    long tapRateSavedInt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,11 +74,34 @@ public class MainActivity extends Activity {
             Log.v(MainActivity.class.getName(), "No ads");
             //Toast.makeText(this, true + "", Toast.LENGTH_SHORT).show();
         }
-        SharedPreferences tapRateSaved = getSharedPreferences("tapRate", Context.MODE_PRIVATE);
-        final int tapRateSavedInt = tapRateSaved.getInt("tapRate", 1);
-        tapRate = tapRateSavedInt;
+
+
         SharedPreferences quantitySaved = getSharedPreferences("quantity", Context.MODE_PRIVATE);
-        final long quantitySavedLong = quantitySaved.getLong("quantity", 0);
+        long quantitySavedLong = quantitySaved.getLong("quantity", 0);
+        SharedPreferences deleteAllData = getSharedPreferences("deleteData", Context.MODE_PRIVATE);
+        SharedPreferences.Editor deleteAllDataEditor = deleteAllData.edit();
+        deleteAllDataEditor.putInt("deleteData", 1);
+        deleteAllDataEditor.commit();
+        SharedPreferences tapRateSaved = getSharedPreferences("tapRate", Context.MODE_PRIVATE);
+
+        tapRateSavedInt = tapRateSaved.getLong("tapRate", 1);
+        tapRate = tapRateSavedInt;
+        boolean mboolean = false;
+
+        SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
+        mboolean = settings.getBoolean("FIRST_RUN", false);
+        if (!mboolean) {
+            // do the thing for the first time
+            settings = getSharedPreferences("PREFS_NAME", 0);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putBoolean("FIRST_RUN", true);
+            editor.commit();
+            tapRate = 1;
+
+        } else {
+            // other time your app loads
+        }
+
         quantity = quantitySavedLong;
         festDiamondText = (TextView) findViewById(R.id.festDiamondText);
         //tapsTillShowPB = (ProgressBar) findViewById(R.id.tillShowPB);
@@ -112,7 +136,7 @@ public class MainActivity extends Activity {
             kachingSound.start();
             Random bonus = new Random();
             if (quantity + "".length() > 9 && quantity + "".length() < 12) {
-               maxBonus = 200000;
+                maxBonus = 200000;
                 leastBonus = 50000;
             }
             if (quantity + "".length() > 12 && quantity + "".length() < 15) {
@@ -290,7 +314,7 @@ public class MainActivity extends Activity {
         else if (quantity > 100000000000L && quantity < 1000000000000L){
             quantityString = "" + quantity;
             quantityString =  quantityString.charAt(0) + "" + quantityString.charAt(1) + "" + quantityString.charAt(3) + "." + quantityString.charAt(4) + quantityString.charAt(5);
-            letter = letterGet.getString(R.string.abbreviatedMillion);
+            letter = letterGet.getString(R.string.abbreviatedBillion);
             //changingNum = "tenMillion";
         }
         // more than one trillion, less than ten trillion
@@ -317,6 +341,30 @@ public class MainActivity extends Activity {
 
             //changingNum = "tenBillion";
         }
+        // more than one quadrillion, less than ten quadrillion
+        else if (quantity > 1000000000000000L && quantity < 10000000000000000L){
+            quantityString = "" + quantity;
+            quantityString =  quantityString.charAt(0) + "." + quantityString.charAt(1) + quantityString.charAt(2);
+            letter = letterGet.getString(R.string.abbreviated_quadrillion);
+
+            //changingNum = "tenBillion";
+        }
+        // more than ten quadrillion, less than one one hundred quadrillion
+        else if (quantity > 10000000000000000L && quantity < 100000000000000000L){
+            quantityString = "" + quantity;
+            quantityString =  quantityString.charAt(0) + quantityString.charAt(1) + "" + "." + quantityString.charAt(2) + quantityString.charAt(3);
+            letter = letterGet.getString(R.string.abbreviated_quadrillion);
+
+            //changingNum = "tenBillion";
+        }
+        // more than one hundred quadrillion, less than one quintillion
+        else if (quantity > 100000000000000000L && quantity < 1000000000000000000L){
+            quantityString = "" + quantity;
+            quantityString =  quantityString.charAt(0) + quantityString.charAt(1) + "" + quantityString.charAt(2) + "" + "." + quantityString.charAt(3) + quantityString.charAt(4);
+            letter = letterGet.getString(R.string.abbreviated_quadrillion);
+
+            //changingNum = "tenBillion";
+        }
         // less than a million. No decimals.
         else if (quantity < 1000000) {
             quantityString = "" + quantity;
@@ -340,6 +388,7 @@ public class MainActivity extends Activity {
     public void upgradesScreen(View view) {
         Intent upgrades = new Intent(this, UpgradesActivity.class);
         startActivity(upgrades);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
 //    public void displayProgress() {
@@ -457,6 +506,7 @@ public class MainActivity extends Activity {
     public void goToSettings(View view) {
         Intent intent = new Intent(MainActivity.this, Settings.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     public void startBonusCycle() {
@@ -507,6 +557,7 @@ public class MainActivity extends Activity {
         displayQuantity();
         Intent intent = new Intent(MainActivity.this, Settings.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 //        AlertDialog.Builder builder;
 //        builder = new AlertDialog.Builder(MainActivity.this);
 //        builder.setTitle("Exit Tapfest?");
@@ -527,5 +578,14 @@ public class MainActivity extends Activity {
 //        builder.show();
     }
 
+    private void deleteAppData() {
+        try {
+            // clearing app data
+            String packageName = getApplicationContext().getPackageName();
+            Runtime runtime = Runtime.getRuntime();
+            runtime.exec("pm clear "+packageName);
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        } }
 }

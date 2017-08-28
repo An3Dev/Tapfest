@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -56,9 +55,7 @@ public class Settings extends Activity {
                                    IabHelper.OnIabSetupFinishedListener() {
                                        public void onIabSetupFinished(IabResult result) {
                                            if (!result.isSuccess()) {
-                                               Log.d(TAG, "In-app Billing setup failed: " + result);
                                            } else {
-                                               Log.d(TAG, "In-app Billing is set up OK");
                                                mHelper.enableDebugLogging(true, TAG);
                                            }
                                        }
@@ -68,8 +65,7 @@ public class Settings extends Activity {
 
         setContentView(R.layout.activity_settings);
         lv = (ListView) findViewById(R.id.settings_listview);
-        //Add this line in 30 days.
-//        g.add("\nRemove ads\n");
+        g.add("\nRemove ads\n");
         g.add("\nShare\n");
         g.add("\nOther games & apps\n");
         SharedPreferences cheatCodeUsed = getSharedPreferences("isCheatCodeUsed", Context.MODE_PRIVATE);
@@ -258,7 +254,7 @@ public class Settings extends Activity {
     }
 
     private void onInviteClicked() {
-        String url = "https://play.google.com/store/apps/details?id=an3enterprises.guessthenumber";
+        String url = "https://play.google.com/store/apps/details?id=an3enterprises.tapfest";
         String shareBody = getResources().getString(R.string.you_should_install_tapfest);
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
@@ -267,5 +263,9 @@ public class Settings extends Activity {
         startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.share_using)));
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
 }

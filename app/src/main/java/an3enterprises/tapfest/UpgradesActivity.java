@@ -32,7 +32,7 @@ public class UpgradesActivity extends Activity {
 
     SharedPreferences tapRateSaved;
     public Button upgradeButton;
-    static int tapRate = 1;
+    static long tapRate = 1;
     private RewardedVideoAd mAd;
     IabHelper mHelper;
     private static final String TAG = Settings.class.getName();
@@ -43,7 +43,7 @@ public class UpgradesActivity extends Activity {
     protected void onStop() {
         SharedPreferences tapRateSaved = getSharedPreferences("tapRate", Context.MODE_PRIVATE);
         SharedPreferences.Editor tapRateSavedEditor = tapRateSaved.edit();
-        tapRateSavedEditor.putInt("tapRate", tapRate);
+        tapRateSavedEditor.putLong("tapRate", tapRate);
         tapRateSavedEditor.commit();
         SharedPreferences quantitySaved = getSharedPreferences("quantity", Context.MODE_PRIVATE);
         SharedPreferences.Editor quantitySavedEditor = quantitySaved.edit();
@@ -65,7 +65,7 @@ public class UpgradesActivity extends Activity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_upgrades);
         SharedPreferences tapRateSaved = getSharedPreferences("tapRate", Context.MODE_PRIVATE);
-        final int tapRateSavedInt = tapRateSaved.getInt("tapRate", 1);
+        final long tapRateSavedInt = tapRateSaved.getLong("tapRate", 1);
         tapRate = tapRateSavedInt;
         upgradeButton = (Button) findViewById((R.id.upgrade_button));
         upgradeButton.setText(tapRate + getResources().getString(R.string.festCoinsPerTap));
@@ -97,8 +97,7 @@ public class UpgradesActivity extends Activity {
             @Override
             public void onRewarded(RewardItem rewardItem) {
                 Snackbar.make(findViewById(R.id.scrollViewUpgrades), getResources().getString(R.string.earnedFestCoinsFromVideo), Snackbar.LENGTH_SHORT);
-                quantity += 500000;
-
+                quantity += 1000000000;
             }
 
             @Override
@@ -418,7 +417,7 @@ public class UpgradesActivity extends Activity {
     protected void onPause() {
         SharedPreferences tapRateSaved = getSharedPreferences("tapRate", Context.MODE_PRIVATE);
         SharedPreferences.Editor tapRateSavedEditor = tapRateSaved.edit();
-        tapRateSavedEditor.putInt("tapRate", tapRate);
+        tapRateSavedEditor.putLong("tapRate", tapRate);
         tapRateSavedEditor.commit();
         SharedPreferences quantitySaved = getSharedPreferences("quantity", Context.MODE_PRIVATE);
         SharedPreferences.Editor quantitySavedEditor = quantitySaved.edit();
@@ -435,7 +434,7 @@ public class UpgradesActivity extends Activity {
     protected void onRestart() {
         SharedPreferences tapRateSaved = getSharedPreferences("tapRate", Context.MODE_PRIVATE);
         SharedPreferences.Editor tapRateSavedEditor = tapRateSaved.edit();
-        tapRateSavedEditor.putInt("tapRate", tapRate);
+        tapRateSavedEditor.putLong("tapRate", tapRate);
         tapRateSavedEditor.commit();
         SharedPreferences quantitySaved = getSharedPreferences("quantity", Context.MODE_PRIVATE);
         SharedPreferences.Editor quantitySavedEditor = quantitySaved.edit();
@@ -452,7 +451,7 @@ public class UpgradesActivity extends Activity {
     public void onBackPressed() {
         SharedPreferences tapRateSaved = getSharedPreferences("tapRate", Context.MODE_PRIVATE);
         SharedPreferences.Editor tapRateSavedEditor = tapRateSaved.edit();
-        tapRateSavedEditor.putInt("tapRate", tapRate);
+        tapRateSavedEditor.putLong("tapRate", tapRate);
         tapRateSavedEditor.commit();
         SharedPreferences quantitySaved = getSharedPreferences("quantity", Context.MODE_PRIVATE);
         SharedPreferences.Editor quantitySavedEditor = quantitySaved.edit();
@@ -463,13 +462,14 @@ public class UpgradesActivity extends Activity {
         festDiamondsEditor.putInt("festDiamonds", festDiamonds);
         festDiamondsEditor.commit();
         super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     @Override
     protected void onDestroy() {
         SharedPreferences tapRateSaved = getSharedPreferences("tapRate", Context.MODE_PRIVATE);
         SharedPreferences.Editor tapRateSavedEditor = tapRateSaved.edit();
-        tapRateSavedEditor.putInt("tapRate", tapRate);
+        tapRateSavedEditor.putLong("tapRate", tapRate);
         tapRateSavedEditor.commit();
         SharedPreferences quantitySaved = getSharedPreferences("quantity", Context.MODE_PRIVATE);
         SharedPreferences.Editor quantitySavedEditor = quantitySaved.edit();
@@ -519,7 +519,7 @@ public class UpgradesActivity extends Activity {
 
     public void determinePurchaseAmount(int amountNeeded) {
         if (amountNeeded <= 80) {
-           // Log.i("UpgradesActivity", "buy 80");
+            // Log.i("UpgradesActivity", "buy 80");
             Button buyFestDiamonds80Btn = (Button) findViewById(R.id.buy_festdiamonds_80);
             try {
                 buyFestDiamondseighty(buyFestDiamonds80Btn);
@@ -578,7 +578,7 @@ public class UpgradesActivity extends Activity {
                     Snackbar.make(view, getResources().getString(R.string. tapRateWasIncreased), Snackbar.LENGTH_LONG);
                     SharedPreferences tapRateSaved = getSharedPreferences("tapRate", Context.MODE_PRIVATE);
                     SharedPreferences.Editor tapRateSavedEditor = tapRateSaved.edit();
-                    tapRateSavedEditor.putInt("tapRate", tapRate);
+                    tapRateSavedEditor.putLong("tapRate", tapRate);
                     tapRateSavedEditor.commit();
                     SharedPreferences quantitySaved = getSharedPreferences("quantity", Context.MODE_PRIVATE);
                     SharedPreferences.Editor quantitySavedEditor = quantitySaved.edit();

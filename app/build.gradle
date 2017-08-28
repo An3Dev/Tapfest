@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.firebase.firebase-perf'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "26.0.0"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.1"
 
     defaultConfig {
         applicationId "an3enterprises.tapfest"
         minSdkVersion 21
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 9
         versionName "9.0"
         multiDexEnabled true
@@ -35,9 +35,10 @@ dependencies {
     compile 'com.google.firebase:firebase-perf:11.0.2'
     compile 'com.google.firebase:firebase-auth:11.0.2'
     compile 'com.google.android.gms:play-services-auth:11.0.2'
+    //The line below will set error if is updated to version 11.0.4
     compile 'com.google.android.gms:play-services-gcm:11.0.2'
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:design:25.2.0'
     compile 'com.android.support:design:26.0.0-alpha1'
+    testCompile 'junit:junit:4.12'
+
 }
 apply plugin: 'com.google.gms.google-services'
